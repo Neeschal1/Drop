@@ -1,12 +1,12 @@
-import React from 'react'
-import Hero from '../ui/landing/hero'
+import React from "react";
+import Hero from "../ui/landing/hero";
 
 const Landing = () => {
   return (
-    <div className='flex items-center justify-center'>
-        <Hero />
+    <div className="flex items-center justify-center w-full">
+      <Hero />
     </div>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing;

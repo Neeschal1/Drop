@@ -7,7 +7,7 @@ const Hero = () => {
     "https://images.pexels.com/photos/5319503/pexels-photo-5319503.jpeg",
     "https://images.pexels.com/photos/34121563/pexels-photo-34121563.jpeg",
     "https://images.pexels.com/photos/17347429/pexels-photo-17347429.jpeg",
-    "https://images.pexels.com/photos/9476356/pexels-photo-9476356.jpeg"
+    "https://images.pexels.com/photos/9476356/pexels-photo-9476356.jpeg",
   ];
 
   const [currentImage, setCurrentImage] = useState(0);
@@ -21,8 +21,10 @@ const Hero = () => {
   }, [backgroundImages.length]);
 
   return (
-    <div className="items-center justify-center flex">
-      <Navbar />
+    <div className="items-center justify-center flex w-full">
+      <div className="flex w-full" style={{display: "flex", zIndex: 10}}>
+        <Navbar />
+      </div>
       {backgroundImages.map((image, index) => (
         <div
           key={image}
