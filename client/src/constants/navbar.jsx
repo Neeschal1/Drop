@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../assets/images/logo.png";
-import { PrimaryButton, CartButton } from "../components/componentsLayout";
+import { AuthButton, CartButton } from "../components/componentsLayout";
 
 const NavElements = [
   {
@@ -33,13 +33,7 @@ const NavElements = [
 const Navbar = () => {
   return (
     <div className="flex fixed items-center justify-between p-mid w-full py-4 animate-fade-in bg-black/10">
-      <img
-        src={Logo}
-        alt="Logo"
-        className="transition-transform duration-300 ease-out hover:scale-105 cursor-pointer"
-      />
-
-      <div className="flex items-row items-center gap-x-extralarge">
+      <div className="flex items-row items-center gap-x-extralarge justify-between w-full">
         <div className="flex items-row">
           {NavElements.map((items) => (
             <a
@@ -54,9 +48,15 @@ const Navbar = () => {
           ))}
         </div>
 
+        <img
+        src={Logo}
+        alt="Logo"
+        className="transition-transform duration-300 ease-out hover:scale-105 cursor-pointer"
+      />
+
         <div className="flex items-center items-row gap-mid">
-          <PrimaryButton buttonName="LOGIN" />
-          <PrimaryButton buttonName="SIGNUP" />
+          <AuthButton buttonName="ACCOUNT" />
+          <AuthButton buttonName="FAVS" />
           <CartButton />
         </div>
       </div>

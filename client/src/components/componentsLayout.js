@@ -1,8 +1,9 @@
-import { PrimaryButton, CartButton } from "./buttons";
+import { AuthButton, PrimaryButton, CartButton } from "./buttons";
 import { HeroHeading, Description } from "./texts";
 
 export { 
-    PrimaryButton, 
+    AuthButton, 
+    PrimaryButton,
     CartButton,
     HeroHeading,
     Description,
