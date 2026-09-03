@@ -22,10 +22,11 @@ const Hero = () => {
 
   return (
     <div className="items-center justify-center flex w-full">
-      <div className="flex w-full" style={{display: "flex", zIndex: 10}}>
+      <div className="flex w-full" style={{ display: "flex", zIndex: 10 }}>
         <Navbar />
       </div>
-      {backgroundImages.map((image, index) => (
+      <div>
+        {backgroundImages.map((image, index) => (
         <div
           key={image}
           aria-hidden="true"
@@ -35,6 +36,7 @@ const Hero = () => {
           style={{ backgroundImage: `url('${image}')` }}
         />
       ))}
+      </div>
     </div>
   );
 };
