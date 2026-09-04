@@ -3,11 +3,11 @@ import Logo from "../assets/images/logo.png";
 import { AuthButton, CartButton } from "../components/componentsLayout";
 
 const NavElements = [
-  { id: 1, name: "WOMEN", navigateTo: "#" },
-  { id: 2, name: "MEN", navigateTo: "#" },
-  { id: 3, name: "COLLECTION", navigateTo: "#" },
-  { id: 4, name: "SALES", navigateTo: "#" },
-  { id: 5, name: "ABOUT", navigateTo: "#" },
+  { id: 1, name: "WOMEN", navigateTo: "/women-collection" },
+  { id: 2, name: "MEN", navigateTo: "/men-collection" },
+  { id: 3, name: "COLLECTION", navigateTo: "/collection" },
+  { id: 4, name: "SALES", navigateTo: "/sales" },
+  { id: 5, name: "ABOUT", navigateTo: "/about" },
 ];
 
 const Navbar = () => {
@@ -27,7 +27,7 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  
+
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
     return () => {
@@ -64,9 +64,9 @@ const Navbar = () => {
           className="h-6 sm:h-7 lg:h-8 w-auto transition-transform duration-300 ease-out hover:scale-105 cursor-pointer absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
         />
         <div className="hidden lg:flex items-center gap-mid">
-          <AuthButton buttonName="ACCOUNT" />
-          <AuthButton buttonName="FAVS" />
-          <CartButton />
+          <AuthButton navigateTo="/signup" buttonName="ACCOUNT" />
+          <AuthButton navigateTo="/favourites" buttonName="FAVS" />
+          <CartButton navigateTo="/carts" />
         </div>
         <div className="lg:hidden w-8 h-8" aria-hidden="true" />
       </div>

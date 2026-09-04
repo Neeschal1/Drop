@@ -4,10 +4,10 @@ const footerLinks = [
   {
     title: "Shop",
     links: [
-      { name: "Women", href: "#" },
-      { name: "Men", href: "#" },
-      { name: "New Arrivals", href: "#" },
-      { name: "Sale", href: "#" },
+      { name: "Women", href: "/women-collection" },
+      { name: "Men", href: "/men-collection" },
+      { name: "New Arrivals", href: "/sales" },
+      { name: "Sale", href: "/sales" },
     ],
   },
   {

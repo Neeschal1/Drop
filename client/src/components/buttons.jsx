@@ -1,12 +1,19 @@
 import useCart from "../hooks/carts";
 
-export const AuthButton = ({ buttonName }) => {
+
+export const AuthButton = ({ buttonName, navigateTo }) => {
   return (
-    <button className="flex border font-poppins border-white px-3 sm:px-large py-2 sm:py-small text-xs sm:text-sm text-white whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-white hover:text-black hover:-translate-y-0.5 items-center justify-center w-full">
+    <button
+      onClick={() => {
+        navigation.navigate(navigateTo);
+      }}
+      className="flex border font-poppins border-white px-3 sm:px-large py-2 sm:py-small text-xs sm:text-sm text-white whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-white hover:text-black hover:-translate-y-0.5 items-center justify-center w-full"
+    >
       {buttonName}
     </button>
   );
 };
+
 
 export const PrimaryButton = ({ buttonName }) => {
   return (
@@ -16,10 +23,14 @@ export const PrimaryButton = ({ buttonName }) => {
   );
 };
 
-export const CartButton = () => {
+
+export const CartButton = ({ navigateTo }) => {
   const { cartItems } = useCart();
   return (
     <button
+      onClick={() => {
+        navigation.navigate(navigateTo);
+      }}
       className={`flex font-poppins ${
         cartItems.length > 0 ? "bg-primaryred" : "bg-amber-400"
       } px-3 sm:px-large py-2 sm:py-small text-xs sm:text-sm text-white whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-primaryred hover:text-white hover:-translate-y-0.5`}
