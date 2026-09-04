@@ -14,6 +14,14 @@ export const Description = ({ descriptionTexts }) => {
   );
 };
 
+export const DescriptionBlack = ({ descriptionTexts }) => {
+  return (
+    <h1 className="flex text-black/80 font-poppins font-medium">
+      {descriptionTexts}
+    </h1>
+  );
+};
+
 export const Heading = ({ headingName }) => {
   return (
     <h1 className="flex text-black font-poppins font-medium text-[80px]">

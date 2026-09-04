@@ -2,6 +2,7 @@ import React from "react";
 import Hero from "../ui/landing/hero";
 import Welcome from "../ui/landing/welcome";
 import Arrivals from "../ui/landing/arrivals";
+import Products from "../ui/landing/products";
 
 const Landing = () => {
   return (
@@ -9,6 +10,7 @@ const Landing = () => {
       <Hero />
       <Welcome />
       <Arrivals />
+      <Products />
     </div>
   );
 };
