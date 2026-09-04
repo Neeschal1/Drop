@@ -3,13 +3,16 @@ import {
   SubHeading,
   DescriptionBlack,
   Description,
-  PricingText
+  PricingText,
 } from "../../components/componentsLayout";
 import { Data } from "../../utils/clothesProductsData";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const womenProducts = Data[0].women;
   const menProducts = Data[0].men;
+
+  const navigation = useNavigate();
 
   return (
     <div className="w-full py-10 sm:py-16 lg:py-20">
@@ -20,8 +23,7 @@ const Products = () => {
         </div>
         <div className="flex flex-row gap-3 sm:gap-mid overflow-x-auto px-4 sm:px-large pb-mid scrollbar-hide">
           {womenProducts.map((product) => (
-            <button
-            onClick={()=>console.log("Item's index: ", product)}
+            <button onClick={() => navigation("/product-description", {state: { product }})}
               key={product.item}
               className="flex flex-col shrink-0 w-40 sm:w-56 md:w-64 lg:w-70 group cursor-pointer"
             >
@@ -36,7 +38,10 @@ const Products = () => {
                 <DescriptionBlack descriptionTexts={product.itemName} />
                 <div className="flex items-center justify-between">
                   <PricingText price={product.price} />
-                  <span className="text-xs sm:text-sm"> ★ {product.ratings} </span>
+                  <span className="text-xs sm:text-sm">
+                    {" "}
+                    ★ {product.ratings}{" "}
+                  </span>
                 </div>
               </div>
             </button>
@@ -51,6 +56,7 @@ const Products = () => {
         <div className="flex flex-row gap-3 sm:gap-mid overflow-x-auto px-4 sm:px-large pb-mid scrollbar-hide">
           {menProducts.map((product) => (
             <button
+              onClick={() => navigation("/product-description", {state: { product }})}
               key={product.item}
               className="flex flex-col shrink-0 w-40 sm:w-56 md:w-64 lg:w-70 group cursor-pointer"
             >
@@ -65,7 +71,10 @@ const Products = () => {
                 <DescriptionBlack descriptionTexts={product.itemName} />
                 <div className="flex items-center justify-between">
                   <PricingText price={product.price} />
-                  <span className="text-xs sm:text-sm"> ★ {product.ratings} </span>
+                  <span className="text-xs sm:text-sm">
+                    {" "}
+                    ★ {product.ratings}{" "}
+                  </span>
                 </div>
               </div>
             </button>

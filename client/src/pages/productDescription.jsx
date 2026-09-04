@@ -1,9 +1,15 @@
-import React from 'react'
+import Footer from "../constants/footer";
+import Navbar from "../constants/navbar";
+import ProductDetails from "../ui/products/productDetails";
 
 const ProductDescription = () => {
   return (
-    <div>ProductDescription</div>
-  )
-}
+    <div className="flex flex-col items-center w-full">
+      <Navbar bgstate={true} />
+      <ProductDetails />
+      <Footer />
+    </div>
+  );
+};
 
-export default ProductDescription
+export default ProductDescription;

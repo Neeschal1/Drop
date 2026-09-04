@@ -1,4 +1,4 @@
-import { AuthButton, PrimaryButton, CartButton } from "./buttons";
+import { AuthButton, PrimaryButton, CartButton, AddToCartButton, PrimaryBlackButton } from "./buttons";
 import { HeroHeading, Description, Heading, SubHeading, DescriptionBlack, PricingText } from "./texts";
 
 export { 
@@ -10,5 +10,7 @@ export {
     Heading,
     SubHeading,
     DescriptionBlack,
-    PricingText
+    PricingText,
+    AddToCartButton,
+    PrimaryBlackButton
 };

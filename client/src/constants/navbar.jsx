@@ -10,7 +10,7 @@ const NavElements = [
   { id: 5, name: "ABOUT", navigateTo: "/about" },
 ];
 
-const Navbar = () => {
+const Navbar = ({bgstate}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -37,7 +37,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`flex fixed top-0 left-0 z-50 items-center justify-between w-full px-4 sm:px-6 lg:px-mid py-3 lg:py-4 animate-fade-in transition-colors duration-500 ${isScrolled || isMobileMenuOpen ? "bg-black" : "bg-black/10"}`}>
+      className={`flex fixed top-0 left-0 z-50 items-center justify-between w-full px-4 sm:px-6 lg:px-mid py-3 lg:py-4 animate-fade-in transition-colors duration-500 ${isScrolled || isMobileMenuOpen || bgstate ? "bg-black" : "bg-black/10"}`}>
       <div className="flex items-center justify-between w-full">
         <button
           type="button"
