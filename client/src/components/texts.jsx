@@ -45,3 +45,11 @@ export const PricingText = ({price}) => {
     </h1>
   )
 }
+
+export const NavsTexts = ({pageName}) => {
+  return (
+    <h1 className="font-poppins text-black font-medium text-sm sm:text-base lg:text-xl">
+      {pageName}
+    </h1>
+  )
+}

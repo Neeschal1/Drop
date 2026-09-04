@@ -54,7 +54,8 @@ const ProductDetails = () => {
   } = product;
 
   return (
-    <div className="flex flex-col lg:flex-row w-full gap-8 lg:gap-16 px-4 sm:px-6 lg:px-mid pt-24 sm:pt-28 lg:pt-32 pb-10 lg:pb-16">
+    <div className="flex flex-col lg:flex-row w-full gap-8 lg:gap-16 px-4 sm:px-6 lg:px-mid pt-24 sm:pt-28 lg:pt-15 pb-10 lg:pb-16">
+        
       <div className="flex flex-col gap-3 w-full">
         <div className="w-full h-150 overflow-hidden bg-black/5">
           <img
@@ -131,9 +132,11 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        <div onClick={handleAddToCart} className="mt-2 flex flex-row gap-mid">
+        <div onClick={handleAddToCart} className="mt-2 flex flex-row gap-mid w-full">
+          <div className="flex w-5/12">
+            <PrimaryBlackButton buttonName="Add to Fav" />
+          </div>
           <AddToCartButton />
-          <PrimaryBlackButton buttonName="Add to Fav" />
         </div>
       </div>
     </div>

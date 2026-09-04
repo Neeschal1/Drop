@@ -64,7 +64,7 @@ export const AddToCartButton = () => {
   return (
     <button
       className="flex font-poppins bg-amber-400
-      lg:px-8 sm:px-large lg:py-4 sm:py-small text-xs sm:text-sm text-white whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-black hover:text-white hover:-translate-y-0.5"
+      lg:px-8 sm:px-large w-full lg:py-4 sm:py-small text-xs sm:text-sm text-white whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-black hover:text-white hover:-translate-y-0.5 items-center justify-center"
     >
       Add to Cart
     </button>
