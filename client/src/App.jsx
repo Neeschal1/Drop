@@ -1,5 +1,5 @@
 import React from "react";
-import { Landing, Men, Women, Collection, Sales, About, Carts, Login, Signup, Favourites } from "./pages/pagesLayout";
+import { Landing, Men, Women, Collection, Sales, About, Carts, Login, Signup, Favourites, ProductDescription } from "./pages/pagesLayout";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -17,6 +17,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/carts" element={<Carts />} />
           <Route path="/favourites" element={<Favourites />} />
+          <Route path="/product-description" element={<ProductDescription />} />
         </Routes>
       </Router>
     </div>

@@ -8,6 +8,7 @@ import Carts from "./carts";
 import Signup from "./signup";
 import Login from "./login";
 import Favourites from "./favs";
+import ProductDescription from "./productDescription";
 
 export {
     Landing,
@@ -19,5 +20,6 @@ export {
     Carts,
     Login,
     Signup,
-    Favourites
+    Favourites,
+    ProductDescription
 }

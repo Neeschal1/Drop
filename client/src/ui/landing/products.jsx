@@ -2,6 +2,8 @@ import React from "react";
 import {
   SubHeading,
   DescriptionBlack,
+  Description,
+  PricingText
 } from "../../components/componentsLayout";
 import { Data } from "../../utils/clothesProductsData";
 
@@ -18,9 +20,10 @@ const Products = () => {
         </div>
         <div className="flex flex-row gap-3 sm:gap-mid overflow-x-auto px-4 sm:px-large pb-mid scrollbar-hide">
           {womenProducts.map((product) => (
-            <div
+            <button
+            onClick={()=>console.log("Item's index: ", product)}
               key={product.item}
-              className="flex flex-col shrink-0 w-40 sm:w-56 md:w-64 lg:w-70 group"
+              className="flex flex-col shrink-0 w-40 sm:w-56 md:w-64 lg:w-70 group cursor-pointer"
             >
               <div className="w-full aspect-3/4 overflow-hidden">
                 <img
@@ -30,17 +33,13 @@ const Products = () => {
                 />
               </div>
               <div className="flex flex-col gap-1 mt-2 sm:mt-3">
-                <h3 className="font-poppins font-medium text-sm sm:text-base truncate">
-                  {product.itemName}
-                </h3>
+                <DescriptionBlack descriptionTexts={product.itemName} />
                 <div className="flex items-center justify-between">
-                  <span className="font-poppins font-medium text-sm sm:text-base">
-                    {product.price}
-                  </span>
+                  <PricingText price={product.price} />
                   <span className="text-xs sm:text-sm"> ★ {product.ratings} </span>
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </section>
@@ -51,9 +50,9 @@ const Products = () => {
         </div>
         <div className="flex flex-row gap-3 sm:gap-mid overflow-x-auto px-4 sm:px-large pb-mid scrollbar-hide">
           {menProducts.map((product) => (
-            <div
+            <button
               key={product.item}
-              className="flex flex-col shrink-0 w-40 sm:w-56 md:w-64 lg:w-70 group"
+              className="flex flex-col shrink-0 w-40 sm:w-56 md:w-64 lg:w-70 group cursor-pointer"
             >
               <div className="w-full aspect-3/4 overflow-hidden">
                 <img
@@ -63,17 +62,13 @@ const Products = () => {
                 />
               </div>
               <div className="flex flex-col gap-1 mt-2 sm:mt-3">
-                <h3 className="font-poppins font-medium text-sm sm:text-base truncate">
-                  {product.itemName}
-                </h3>
+                <DescriptionBlack descriptionTexts={product.itemName} />
                 <div className="flex items-center justify-between">
-                  <span className="font-poppins font-medium text-sm sm:text-base">
-                    {product.price}
-                  </span>
+                  <PricingText price={product.price} />
                   <span className="text-xs sm:text-sm"> ★ {product.ratings} </span>
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </section>

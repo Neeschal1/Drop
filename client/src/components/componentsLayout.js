@@ -1,5 +1,5 @@
 import { AuthButton, PrimaryButton, CartButton } from "./buttons";
-import { HeroHeading, Description, Heading, SubHeading, DescriptionBlack } from "./texts";
+import { HeroHeading, Description, Heading, SubHeading, DescriptionBlack, PricingText } from "./texts";
 
 export { 
     AuthButton, 
@@ -9,5 +9,6 @@ export {
     Description,
     Heading,
     SubHeading,
-    DescriptionBlack
+    DescriptionBlack,
+    PricingText
 };

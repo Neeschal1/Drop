@@ -37,3 +37,11 @@ export const SubHeading = ({ headingName }) => {
     </h1>
   );
 };
+
+export const PricingText = ({price}) => {
+  return (
+    <h1 className="font-poppins font-medium text-sm sm:text-base">
+      {price}
+    </h1>
+  )
+}
