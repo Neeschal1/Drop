@@ -5,22 +5,24 @@ import { Description } from '../../components/componentsLayout';
 
 const Arrivals = () => {
   return (
-    <div className="flex flex-row items-center justify-center">
-      <button className="relative group overflow-hidden cursor-pointer duration-300">
+    <div className="flex flex-col sm:flex-row items-center justify-center w-full">
+      <button className="relative group overflow-hidden cursor-pointer duration-300 w-full sm:w-1/2 h-64 sm:h-140 md:h-96 lg:h-240">
         <img
           src={MenArrivals}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          alt="Men's New Arrival"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-active:scale-105"
         />
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-active:opacity-100 px-4 text-center">
           <Description descriptionTexts="Men's New Arrival" />
         </div>
       </button>
-      <button className="relative group overflow-hidden cursor-pointer duration-300">
+      <button className="relative group overflow-hidden cursor-pointer duration-300 w-full sm:w-1/2 h-64 sm:h-140 md:h-96 lg:h-240">
         <img
           src={WomenArrivals}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          alt="Women's New Arrival"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-active:scale-105"
         />
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-active:opacity-100 px-4 text-center">
           <Description descriptionTexts="Women's New Arrival" />
         </div>
       </button>
@@ -29,4 +31,3 @@ const Arrivals = () => {
 };
 
 export default Arrivals;
-
