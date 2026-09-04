@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import Logo from "../assets/images/logo.png";
 
 const Signup = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -95,21 +100,21 @@ const Signup = () => {
 
             <div className="flex flex-col gap-1.5">
               <label
-                htmlFor="password"
+                htmlFor="confirmpassword"
                 className="font-poppins text-xs text-white/60"
               >
                 Confirm Password
               </label>
               <input
-                id="password"
-                name="password"
+                id="confirmpassword"
+                name="confirmPassword"
                 type="password"
                 required
                 minLength={8}
-                value={formData.password}
+                value={formData.confirmPassword}
                 onChange={handleChange}
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
-                placeholder="At least 8 characters"
+                placeholder="Confirm your password"
               />
             </div>
 
@@ -123,7 +128,10 @@ const Signup = () => {
 
           <p className="font-poppins font-light text-sm text-white/60 text-center">
             Already have an account?{" "}
-            <a href="/login" className="text-white underline underline-offset-2">
+            <a
+              href="/login"
+              className="text-white underline underline-offset-2"
+            >
               Log in
             </a>
           </p>
