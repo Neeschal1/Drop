@@ -6,7 +6,7 @@ import { Description } from '../../components/componentsLayout';
 const Arrivals = () => {
   return (
     <div className="flex flex-col sm:flex-row items-center justify-center w-full">
-      <button className="relative group overflow-hidden cursor-pointer duration-300 w-full sm:w-1/2 h-64 sm:h-140 md:h-96 lg:h-240">
+      <button onClick={()=>navigation.navigate("/men-collection")} className="relative group overflow-hidden cursor-pointer duration-300 w-full sm:w-1/2 h-64 sm:h-140 md:h-96 lg:h-240">
         <img
           src={MenArrivals}
           alt="Men's New Arrival"
@@ -16,7 +16,7 @@ const Arrivals = () => {
           <Description descriptionTexts="Men's New Arrival" />
         </div>
       </button>
-      <button className="relative group overflow-hidden cursor-pointer duration-300 w-full sm:w-1/2 h-64 sm:h-140 md:h-96 lg:h-240">
+      <button onClick={()=>navigation.navigate("/women-collection")} className="relative group overflow-hidden cursor-pointer duration-300 w-full sm:w-1/2 h-64 sm:h-140 md:h-96 lg:h-240">
         <img
           src={WomenArrivals}
           alt="Women's New Arrival"
