@@ -40,8 +40,8 @@ const Hero = () => {
             <Description descriptionTexts="JUST DROPPED: FALL / WINTER 2026" />
           </div>
           <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-3 sm:gap-mid px-6 sm:px-0">
-            <PrimaryButton buttonName="Shop Women's" />
-            <PrimaryButton buttonName="Shop Men's" />
+            <PrimaryButton navigateTo="/women-collection" buttonName="Shop Women's" />
+            <PrimaryButton navigateTo="/men-collection" buttonName="Shop Men's" />
           </div>
         </div>
       ))}

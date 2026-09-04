@@ -15,9 +15,14 @@ export const AuthButton = ({ buttonName, navigateTo }) => {
 };
 
 
-export const PrimaryButton = ({ buttonName }) => {
+export const PrimaryButton = ({ buttonName, navigateTo }) => {
   return (
-    <button className="flex justify-center font-poppins bg-white px-6 sm:px-extralarge py-3 sm:py-mid text-sm sm:text-base text-black whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-black hover:text-white hover:-translate-y-0.5 w-full sm:w-auto">
+    <button
+      onClick={() => {
+        navigation.navigate(navigateTo);
+      }}
+      className="flex justify-center font-poppins bg-white px-6 sm:px-extralarge py-3 sm:py-mid text-sm sm:text-base text-black whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-black hover:text-white hover:-translate-y-0.5 w-full sm:w-auto"
+    >
       {buttonName}
     </button>
   );
