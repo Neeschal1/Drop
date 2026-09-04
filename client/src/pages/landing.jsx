@@ -3,6 +3,7 @@ import Hero from "../ui/landing/hero";
 import Welcome from "../ui/landing/welcome";
 import Arrivals from "../ui/landing/arrivals";
 import Products from "../ui/landing/products";
+import Footer from "../constants/footer";
 
 const Landing = () => {
   return (
@@ -11,6 +12,7 @@ const Landing = () => {
       <Welcome />
       <Arrivals />
       <Products />
+      <Footer />
     </div>
   );
 };
