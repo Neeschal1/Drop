@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import useCart from "../hooks/carts";
+import useFavs from "../hooks/favs";
 
 
 export const AuthButton = ({ buttonName, navigateTo }) => {
@@ -38,6 +40,28 @@ export const PrimaryBlackButton = ({ buttonName, navigateTo }) => {
       className="flex lg:px-8 lg:py-4 justify-center font-poppins bg-black px-6 sm:px-extralarge py-3 sm:py-mid text-sm sm:text-base text-white whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-amber-400 hover:text-white hover:-translate-y-0.5 w-full sm:w-auto"
     >
       {buttonName}
+    </button>
+  );
+};
+
+
+export const AddtoFavButton = ({ data }) => {
+  const { favList, setFavList } = useFavs()
+  const handleAction = () => {
+    console.log("Data to save in favlist: ", data)
+    setFavList((prev) => [...prev, data]);
+  }
+
+  useEffect(() => {
+    console.log("Updated favList:", favList);
+  }, [favList]);
+
+  return (
+    <button
+      onClick={handleAction}
+      className="flex lg:px-8 lg:py-4 justify-center font-poppins bg-black px-6 sm:px-extralarge py-3 sm:py-mid text-sm sm:text-base text-white whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-amber-400 hover:text-white hover:-translate-y-0.5 w-full sm:w-auto"
+    >
+      Add to Fav
     </button>
   );
 };

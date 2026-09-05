@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   AddToCartButton,
   PrimaryBlackButton,
+  AddtoFavButton
 } from "../../components/componentsLayout";
 
 const ProductDetails = () => {
@@ -13,10 +14,6 @@ const ProductDetails = () => {
   const [selectedImage, setSelectedImage] = useState(product?.image1);
   const [selectedSize, setSelectedSize] = useState(null);
   const [sizeError, setSizeError] = useState(false);
-
-  useEffect(() => {
-    console.log("Data: ", product);
-  }, [product]);
 
   const handleAddToCart = () => {
     if (!selectedSize) {
@@ -83,7 +80,6 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      {/* Details */}
       <div className="flex flex-col gap-6 lg:w-10/12">
         <div className="flex flex-col gap-2">
           <h1 className="font-poppins font-medium text-2xl sm:text-3xl text-black">
@@ -134,7 +130,7 @@ const ProductDetails = () => {
 
         <div onClick={handleAddToCart} className="mt-2 flex flex-row gap-mid w-full">
           <div className="flex w-5/12">
-            <PrimaryBlackButton buttonName="Add to Fav" />
+            <AddtoFavButton  data={product} />
           </div>
           <AddToCartButton />
         </div>
