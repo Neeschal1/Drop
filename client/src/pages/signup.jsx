@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
+import { useToast } from "../hooks/toast";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -8,17 +10,37 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (passwordError) setPasswordError("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      setPasswordError("Passwords do not match");
+      showToast("Passwords do not match", "error");
+      return;
+    }
+
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      showToast(
+        `Account created! Welcome to DROPP, ${formData.name}!`,
+        "success",
+      );
+      navigate("/");
+    }, 600);
   };
 
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="flex min-h-screen w-full font-poppins">
       <div
         className="hidden lg:block lg:w-1/2 bg-cover bg-center"
         style={{
@@ -28,7 +50,13 @@ const Signup = () => {
       />
       <div className="flex flex-1 flex-col items-center justify-center bg-black px-6 sm:px-12 py-16">
         <div className="w-full max-w-sm flex flex-col gap-8">
-          <img src={Logo} alt="Logo" className="h-7 self-center" />
+          <Link to="/" className="self-center">
+            <img
+              src={Logo}
+              alt="DROPP Logo"
+              className="h-7 hover:scale-105 transition-transform"
+            />
+          </Link>
 
           <div className="flex flex-col gap-2 text-center">
             <h1 className="font-poppins font-medium text-2xl sm:text-3xl text-white">
@@ -116,24 +144,30 @@ const Signup = () => {
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
                 placeholder="Confirm your password"
               />
+              {passwordError && (
+                <span className="text-xs text-red-400 font-poppins mt-1">
+                  {passwordError}
+                </span>
+              )}
             </div>
 
             <button
               type="submit"
-              className="mt-2 bg-white text-black font-poppins font-medium text-sm py-3 cursor-pointer transition-all duration-300 ease-out hover:bg-white/85 hover:-translate-y-0.5"
+              disabled={isLoading}
+              className="mt-2 bg-white text-black font-poppins font-medium text-sm py-3 cursor-pointer transition-all duration-300 ease-out hover:bg-white/85 hover:-translate-y-0.5 disabled:opacity-50"
             >
-              Create account
+              {isLoading ? "Creating account..." : "Create account"}
             </button>
           </form>
 
           <p className="font-poppins font-light text-sm text-white/60 text-center">
             Already have an account?{" "}
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="text-white underline underline-offset-2"
             >
               Log in
-            </a>
+            </Link>
           </p>
         </div>
       </div>

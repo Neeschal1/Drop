@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
+import { useToast } from "../hooks/toast";
 
 const Login = () => {
-  const [formData, setFormData] = useState({email: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -10,10 +15,16 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      showToast(`Welcome back, ${formData.email.split("@")[0]}!`, "success");
+      navigate("/");
+    }, 600);
   };
 
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="flex min-h-screen w-full font-poppins">
       <div
         className="hidden lg:block lg:w-1/2 bg-cover bg-center"
         style={{
@@ -23,7 +34,13 @@ const Login = () => {
       />
       <div className="flex flex-1 flex-col items-center justify-center bg-black px-6 sm:px-12 py-16">
         <div className="w-full max-w-sm flex flex-col gap-8">
-          <img src={Logo} alt="Logo" className="h-7 self-center" />
+          <Link to="/" className="self-center">
+            <img
+              src={Logo}
+              alt="DROPP Logo"
+              className="h-7 hover:scale-105 transition-transform"
+            />
+          </Link>
 
           <div className="flex flex-col gap-2 text-center">
             <h1 className="font-poppins font-medium text-2xl sm:text-3xl text-white">
@@ -73,19 +90,24 @@ const Login = () => {
                 placeholder="At least 8 characters"
               />
             </div>
+
             <button
               type="submit"
-              className="mt-2 bg-white text-black font-poppins font-medium text-sm py-3 cursor-pointer transition-all duration-300 ease-out hover:bg-white/85 hover:-translate-y-0.5"
+              disabled={isLoading}
+              className="mt-2 bg-white text-black font-poppins font-medium text-sm py-3 cursor-pointer transition-all duration-300 ease-out hover:bg-white/85 hover:-translate-y-0.5 disabled:opacity-50"
             >
-              Login
+              {isLoading ? "Logging in..." : "Login"}
             </button>
           </form>
 
           <p className="font-poppins font-light text-sm text-white/60 text-center">
             New to Dropp?{" "}
-            <a href="/signup" className="text-white underline underline-offset-2">
+            <Link
+              to="/signup"
+              className="text-white underline underline-offset-2"
+            >
               Signup
-            </a>
+            </Link>
           </p>
         </div>
       </div>
