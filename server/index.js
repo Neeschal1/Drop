@@ -104,7 +104,6 @@ const products = {
   ],
 };
 
-// Root endpoint
 app.get("/", (req, res) => {
   res.json({
     status: "ok",
@@ -120,7 +119,6 @@ app.get("/", (req, res) => {
   });
 });
 
-// Health check endpoint
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     uptime: process.uptime(),
@@ -129,7 +127,6 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Get all products or filter by gender/category
 app.get("/api/products", (req, res) => {
   const { gender, category, search } = req.query;
 
@@ -163,7 +160,6 @@ app.get("/api/products", (req, res) => {
   });
 });
 
-// Get products by gender
 app.get("/api/products/:gender", (req, res) => {
   const { gender } = req.params;
   const list = products[gender.toLowerCase()];
@@ -183,7 +179,6 @@ app.get("/api/products/:gender", (req, res) => {
   });
 });
 
-// Get single product
 app.get("/api/products/:gender/:id", (req, res) => {
   const { gender, id } = req.params;
   const list = products[gender.toLowerCase()];
