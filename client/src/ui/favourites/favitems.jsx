@@ -10,7 +10,6 @@ const FavItems = () => {
   const { showToast } = useToast();
   const navigate = useNavigate();
 
-  // Selected size state for each item modal/quick-add
   const [activeSizeItem, setActiveSizeItem] = useState(null);
 
   const handleRemove = (index, name) => {
@@ -123,7 +122,7 @@ const FavItems = () => {
               {/* Move to bag button */}
               <div className="mt-2 pt-2 border-t border-black/5">
                 {activeSizeItem === index ? (
-                  <div className="flex flex-col gap-1.5 animate-fade-in">
+                  <div className="flex flex-col gap-1.5">
                     <span className="text-[10px] uppercase font-poppins text-neutral-500">
                       Choose Size:
                     </span>

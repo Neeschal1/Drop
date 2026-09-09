@@ -2,8 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../constants/navbar";
 import Footer from "../constants/footer";
-import Nischal from "../assets/images/nischalBabu.jpg"
-import Keshav from "../assets/images/keshavBabu.jpg"
 
 const About = () => {
   const navigate = useNavigate();
@@ -12,7 +10,7 @@ const About = () => {
     <div className="flex flex-col min-h-screen w-full bg-white font-poppins">
       <Navbar bgstate={true} />
 
-      <main className="flex-1 w-full pt-20 sm:pt-24 lg:w-full lg:items-center lg:justify-center">
+      <main className="flex-1 w-full pt-20 sm:pt-24">
         {/* Editorial Hero Header */}
         <section className="relative w-full py-20 sm:py-28 lg:py-32 bg-neutral-900 text-white overflow-hidden">
           <div
@@ -132,7 +130,7 @@ const About = () => {
         </section>
 
         {/* Meet The Makers */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:items-center lg:w-full lg:justify-center">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-12">
             <div>
               <span className="text-xs uppercase tracking-widest text-neutral-400 font-semibold">
@@ -148,36 +146,52 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="flex flex-col">
               <div className="aspect-3/4 bg-neutral-100 overflow-hidden mb-3">
                 <img
-                  src={Nischal}
-                  alt="Neeschal Pokharel"
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop"
+                  alt="Elena Vance"
                   className="w-full h-full object-cover"
                 />
               </div>
               <h3 className="font-medium text-base text-neutral-900">
-                Neeschal Pokharel
+                Elena Vance
               </h3>
               <span className="text-xs text-neutral-500">
-                Frontend Developer of Dropp
+                Head of Pattern & Silhouette Design
               </span>
             </div>
 
             <div className="flex flex-col">
               <div className="aspect-3/4 bg-neutral-100 overflow-hidden mb-3">
                 <img
-                  src={Keshav}
-                  alt="Keshav Prasad Neupane"
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop"
+                  alt="Marcus Cole"
                   className="w-full h-full object-cover"
                 />
               </div>
               <h3 className="font-medium text-base text-neutral-900">
-                Keshav Prasad Neupane
+                Marcus Cole
               </h3>
               <span className="text-xs text-neutral-500">
-                Backend Developer of Dropp
+                Director of Textile Sourcing
+              </span>
+            </div>
+
+            <div className="flex flex-col">
+              <div className="aspect-3/4 bg-neutral-100 overflow-hidden mb-3">
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
+                  alt="Aria Chen"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="font-medium text-base text-neutral-900">
+                Aria Chen
+              </h3>
+              <span className="text-xs text-neutral-500">
+                Creative Direction & Curation
               </span>
             </div>
           </div>

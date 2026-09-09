@@ -67,8 +67,7 @@ const FilterBar = ({
       {/* Bottom row: Item count & Sort dropdown */}
       <div className="flex items-center justify-between pt-2 text-xs sm:text-sm text-neutral-500 font-poppins">
         <span>
-          Showing <strong className="text-black">{totalItems}</strong>{" "}
-          {totalItems === 1 ? "item" : "items"}
+          Showing <strong className="text-black">{totalItems}</strong> {totalItems === 1 ? "item" : "items"}
         </span>
 
         <div className="flex items-center gap-2">
@@ -94,3 +93,4 @@ const FilterBar = ({
 };
 
 export default FilterBar;
+

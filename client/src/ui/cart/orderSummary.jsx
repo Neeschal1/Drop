@@ -11,13 +11,10 @@ const OrderSummary = ({ onCheckout }) => {
   const [promoSuccess, setPromoSuccess] = useState("");
 
   const subtotal = getCartTotal();
-  const isFreeShipping =
-    subtotal >= 100 || promoSuccess.includes("Free shipping");
+  const isFreeShipping = subtotal >= 100 || promoSuccess.includes("Free shipping");
   const shippingCost = subtotal > 0 && !isFreeShipping ? 5.99 : 0;
   const discountAmount = (subtotal * appliedDiscount) / 100;
-  const total = Math.max(0, subtotal - discountAmount + shippingCost).toFixed(
-    2,
-  );
+  const total = Math.max(0, subtotal - discountAmount + shippingCost).toFixed(2);
 
   const handleApplyPromo = (e) => {
     e.preventDefault();
@@ -53,9 +50,7 @@ const OrderSummary = ({ onCheckout }) => {
       <div className="flex flex-col gap-3 font-poppins text-sm">
         <div className="flex items-center justify-between text-neutral-600">
           <span>Subtotal</span>
-          <span className="text-neutral-900 font-medium">
-            €{subtotal.toFixed(2)}
-          </span>
+          <span className="text-neutral-900 font-medium">€{subtotal.toFixed(2)}</span>
         </div>
 
         <div className="flex items-center justify-between text-neutral-600">
@@ -67,9 +62,7 @@ const OrderSummary = ({ onCheckout }) => {
           </div>
           <span className="text-neutral-900 font-medium">
             {isFreeShipping ? (
-              <span className="text-green-600 font-semibold uppercase text-xs">
-                Free
-              </span>
+              <span className="text-green-600 font-semibold uppercase text-xs">Free</span>
             ) : (
               `€${shippingCost.toFixed(2)}`
             )}
@@ -107,14 +100,10 @@ const OrderSummary = ({ onCheckout }) => {
           </button>
         </div>
         {promoSuccess && (
-          <span className="text-xs text-green-600 font-poppins">
-            ✓ {promoSuccess}
-          </span>
+          <span className="text-xs text-green-600 font-poppins">✓ {promoSuccess}</span>
         )}
         {promoError && (
-          <span className="text-xs text-red-600 font-poppins">
-            {promoError}
-          </span>
+          <span className="text-xs text-red-600 font-poppins">{promoError}</span>
         )}
       </form>
 
@@ -148,3 +137,4 @@ const OrderSummary = ({ onCheckout }) => {
 };
 
 export default OrderSummary;
+

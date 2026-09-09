@@ -5,7 +5,6 @@ import { CollectionGrid } from "../ui/collection/collectionLayout";
 import { Data } from "../utils/clothesProductsData";
 
 const Sales = () => {
-  // Combine popular items from both genders for the sale
   const saleProducts = [
     Data[0].women[0],
     Data[0].men[0],
@@ -21,7 +20,6 @@ const Sales = () => {
     Data[0].men[11],
   ];
 
-  // Simulated countdown timer for sale urgency
   const [timeLeft, setTimeLeft] = useState({
     hours: 14,
     minutes: 32,

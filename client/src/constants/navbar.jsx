@@ -38,11 +38,6 @@ const Navbar = ({ bgstate }) => {
     };
   }, [isMobileMenuOpen]);
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location.pathname]);
-
   return (
     <div
       className={`flex fixed top-0 left-0 z-50 items-center justify-between w-full px-4 sm:px-6 lg:px-8 py-3 lg:py-4 transition-colors duration-500 ${

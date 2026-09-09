@@ -1,17 +1,20 @@
-import { useState, useEffect, useCallback, createContext, useContext } from "react";
+import { useState, useCallback, createContext, useContext } from "react";
 
 const ToastContext = createContext(null);
 
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  const showToast = useCallback((message, type = "success", duration = 2500) => {
-    const id = Date.now() + Math.random();
-    setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, duration);
-  }, []);
+  const showToast = useCallback(
+    (message, type = "success", duration = 2500) => {
+      const id = Date.now() + Math.random();
+      setToasts((prev) => [...prev, { id, message, type }]);
+      setTimeout(() => {
+        setToasts((prev) => prev.filter((t) => t.id !== id));
+      }, duration);
+    },
+    [],
+  );
 
   return (
     <ToastContext.Provider value={{ showToast }}>
@@ -20,12 +23,12 @@ export const ToastProvider = ({ children }) => {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`pointer-events-auto flex items-center gap-3 px-5 py-3.5 font-poppins text-sm shadow-lg animate-slide-up ${
+            className={`pointer-events-auto flex items-center gap-3 px-5 py-3.5 font-poppins text-sm shadow-lg ${
               toast.type === "success"
                 ? "bg-black text-white"
                 : toast.type === "error"
-                ? "bg-red-600 text-white"
-                : "bg-white text-black border border-black/10"
+                  ? "bg-red-600 text-white"
+                  : "bg-white text-black border border-black/10"
             }`}
           >
             <span>

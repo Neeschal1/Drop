@@ -17,35 +17,13 @@ const CollectionGrid = ({
   // Helper to categorize items
   const categorizeItem = (name = "") => {
     const lower = name.toLowerCase();
-    if (
-      lower.includes("pants") ||
-      lower.includes("jeans") ||
-      lower.includes("cargo") ||
-      lower.includes("skirt") ||
-      lower.includes("sweatpants") ||
-      lower.includes("chino")
-    ) {
+    if (lower.includes("pants") || lower.includes("jeans") || lower.includes("cargo") || lower.includes("skirt") || lower.includes("sweatpants") || lower.includes("chino")) {
       return "Bottoms";
     }
-    if (
-      lower.includes("jacket") ||
-      lower.includes("blazer") ||
-      lower.includes("coat") ||
-      lower.includes("bomber") ||
-      lower.includes("overshirt")
-    ) {
+    if (lower.includes("jacket") || lower.includes("blazer") || lower.includes("coat") || lower.includes("bomber") || lower.includes("overshirt")) {
       return "Outerwear";
     }
-    if (
-      lower.includes("shirt") ||
-      lower.includes("hoodie") ||
-      lower.includes("tank") ||
-      lower.includes("polo") ||
-      lower.includes("sweatshirt") ||
-      lower.includes("top") ||
-      lower.includes("dress") ||
-      lower.includes("cardigan")
-    ) {
+    if (lower.includes("shirt") || lower.includes("hoodie") || lower.includes("tank") || lower.includes("polo") || lower.includes("sweatshirt") || lower.includes("top") || lower.includes("dress") || lower.includes("cardigan")) {
       return "Tops";
     }
     return "Other";
@@ -60,15 +38,13 @@ const CollectionGrid = ({
       result = result.filter(
         (p) =>
           p.itemName.toLowerCase().includes(q) ||
-          (p.description && p.description.toLowerCase().includes(q)),
+          (p.description && p.description.toLowerCase().includes(q))
       );
     }
 
     // Category filter
     if (activeCategory !== "All") {
-      result = result.filter(
-        (p) => categorizeItem(p.itemName) === activeCategory,
-      );
+      result = result.filter((p) => categorizeItem(p.itemName) === activeCategory);
     }
 
     // Sorting
@@ -85,9 +61,7 @@ const CollectionGrid = ({
         return pB - pA;
       });
     } else if (sortOption === "rating") {
-      result.sort(
-        (a, b) => (parseFloat(b.ratings) || 0) - (parseFloat(a.ratings) || 0),
-      );
+      result.sort((a, b) => (parseFloat(b.ratings) || 0) - (parseFloat(a.ratings) || 0));
     } else if (sortOption === "name") {
       result.sort((a, b) => a.itemName.localeCompare(b.itemName));
     }
@@ -151,8 +125,7 @@ const CollectionGrid = ({
               No products found
             </h3>
             <p className="font-poppins text-sm text-neutral-500 max-w-md mt-1 mb-6">
-              We couldn't find anything matching your filters. Try clearing your
-              search or switching categories.
+              We couldn't find anything matching your filters. Try clearing your search or switching categories.
             </p>
             <button
               onClick={() => {
@@ -182,3 +155,4 @@ const CollectionGrid = ({
 };
 
 export default CollectionGrid;
+

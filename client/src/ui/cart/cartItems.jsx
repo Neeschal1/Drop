@@ -45,11 +45,7 @@ const CartItems = () => {
               {/* Product Info with Image */}
               <div className="flex items-center gap-4 flex-1">
                 <div
-                  onClick={() =>
-                    navigate("/product-description", {
-                      state: { product: item },
-                    })
-                  }
+                  onClick={() => navigate("/product-description", { state: { product: item } })}
                   className="w-20 sm:w-24 aspect-3/4 bg-neutral-100 shrink-0 overflow-hidden cursor-pointer"
                 >
                   <img
@@ -61,22 +57,13 @@ const CartItems = () => {
 
                 <div className="flex flex-col gap-1">
                   <h3
-                    onClick={() =>
-                      navigate("/product-description", {
-                        state: { product: item },
-                      })
-                    }
+                    onClick={() => navigate("/product-description", { state: { product: item } })}
                     className="font-poppins font-medium text-sm sm:text-base text-neutral-900 cursor-pointer hover:text-blue-600 transition-colors"
                   >
                     {item.itemName}
                   </h3>
                   <div className="flex items-center gap-2 text-xs text-neutral-500 font-poppins">
-                    <span>
-                      Size:{" "}
-                      <strong className="text-black uppercase">
-                        {item.selectedSize || "Standard"}
-                      </strong>
-                    </span>
+                    <span>Size: <strong className="text-black uppercase">{item.selectedSize || "Standard"}</strong></span>
                     <span>•</span>
                     <span>Unit: {item.price}</span>
                   </div>
@@ -140,3 +127,4 @@ const CartItems = () => {
 };
 
 export default CartItems;
+

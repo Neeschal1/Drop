@@ -13,7 +13,6 @@ const Carts = () => {
   const { showToast } = useToast();
   const navigate = useNavigate();
 
-  // Checkout modal state
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
@@ -36,7 +35,6 @@ const Carts = () => {
     e.preventDefault();
     setIsProcessing(true);
 
-    // Simulate order placement
     setTimeout(() => {
       const randomOrderId =
         "ORD-" + Math.floor(100000 + Math.random() * 900000);
@@ -48,7 +46,6 @@ const Carts = () => {
     }, 1500);
   };
 
-  // Sample recommendations for empty state
   const recommendedEmpty = Data[0].women.slice(0, 4);
 
   return (
@@ -56,7 +53,6 @@ const Carts = () => {
       <Navbar bgstate={true} />
 
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-16">
-        {/* Page title & breadcrumb */}
         <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-500 mb-6">
           <button
             onClick={() => navigate("/")}
@@ -69,7 +65,6 @@ const Carts = () => {
         </div>
 
         {cartItems.length === 0 ? (
-          // Empty State
           <div className="flex flex-col items-center justify-center py-12 sm:py-20 text-center">
             <div className="w-20 h-20 rounded-full bg-neutral-100 flex items-center justify-center text-3xl mb-6">
               🛍️
@@ -96,7 +91,6 @@ const Carts = () => {
               </button>
             </div>
 
-            {/* Recommendations in empty cart */}
             <div className="w-full mt-20 text-left border-t border-black/10 pt-12">
               <h2 className="font-poppins font-medium text-xl text-neutral-900 mb-6">
                 Trending Right Now
@@ -109,7 +103,6 @@ const Carts = () => {
             </div>
           </div>
         ) : (
-          // Active Cart
           <div>
             <div className="mb-8">
               <h1 className="font-poppins font-medium text-2xl sm:text-3xl lg:text-4xl text-neutral-900">
@@ -121,12 +114,10 @@ const Carts = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-              {/* Cart Items Column */}
               <div className="lg:col-span-8">
                 <CartItems />
               </div>
 
-              {/* Order Summary Column */}
               <div className="lg:col-span-4 sticky top-28">
                 <OrderSummary onCheckout={() => setIsCheckoutOpen(true)} />
               </div>
@@ -284,7 +275,6 @@ const Carts = () => {
                 </form>
               </>
             ) : (
-              // Order Success View
               <div className="flex flex-col items-center justify-center py-8 text-center">
                 <div className="w-16 h-16 rounded-full bg-green-100 text-green-600 text-3xl flex items-center justify-center mb-4">
                   ✓

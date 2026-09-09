@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
-  }),
+  })
 );
 app.use(express.json());
 
@@ -28,12 +28,9 @@ const products = {
     {
       item: 1,
       itemName: "Everyday Straight Leg Pants",
-      description:
-        "High-waisted straight-leg pants designed for everyday comfort with a relaxed fit and adjustable tie waist.",
-      image1:
-        "https://i.pinimg.com/736x/4f/bd/7b/4fbd7ba14b539887330811573b0af239.jpg",
-      image2:
-        "https://i.pinimg.com/736x/bc/79/d6/bc79d6b971d1f3c47e0f00db33f8a392.jpg",
+      description: "High-waisted straight-leg pants designed for everyday comfort with a relaxed fit and adjustable tie waist.",
+      image1: "https://i.pinimg.com/736x/4f/bd/7b/4fbd7ba14b539887330811573b0af239.jpg",
+      image2: "https://i.pinimg.com/736x/bc/79/d6/bc79d6b971d1f3c47e0f00db33f8a392.jpg",
       price: "€65",
       ratings: "4.8",
       category: "Bottoms",
@@ -42,8 +39,7 @@ const products = {
     {
       item: 2,
       itemName: "Oversized Essential Hoodie",
-      description:
-        "A premium oversized hoodie made for effortless everyday styling with a soft brushed interior.",
+      description: "A premium oversized hoodie made for effortless everyday styling with a soft brushed interior.",
       image1: "https://images.unsplash.com/photo-1556821840-3a63f95609a7",
       image2: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633",
       price: "€75",
@@ -54,8 +50,7 @@ const products = {
     {
       item: 3,
       itemName: "Classic Cropped Jacket",
-      description:
-        "A structured cropped jacket with a modern silhouette, perfect for layering during cooler days.",
+      description: "A structured cropped jacket with a modern silhouette, perfect for layering during cooler days.",
       image1: "https://images.unsplash.com/photo-1544022613-e87ca75a784a",
       image2: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea",
       price: "€110",
@@ -68,8 +63,7 @@ const products = {
     {
       item: 1,
       itemName: "Essential Oversized Hoodie",
-      description:
-        "Heavyweight oversized hoodie designed with a relaxed fit and soft brushed interior for everyday comfort.",
+      description: "Heavyweight oversized hoodie designed with a relaxed fit and soft brushed interior for everyday comfort.",
       image1: "https://images.unsplash.com/photo-1556821840-3a63f95609a7",
       image2: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633",
       price: "€79",
@@ -80,8 +74,7 @@ const products = {
     {
       item: 2,
       itemName: "Classic Straight Jeans",
-      description:
-        "Timeless straight-fit denim jeans featuring a durable cotton construction and versatile washed finish.",
+      description: "Timeless straight-fit denim jeans featuring a durable cotton construction and versatile washed finish.",
       image1: "https://images.unsplash.com/photo-1542272604-787c3835535d",
       image2: "https://images.unsplash.com/photo-1604176354204-9268737828e4",
       price: "€89",
@@ -92,8 +85,7 @@ const products = {
     {
       item: 3,
       itemName: "Minimal Bomber Jacket",
-      description:
-        "Contemporary bomber jacket with a clean silhouette, ribbed cuffs and lightweight insulated construction.",
+      description: "Contemporary bomber jacket with a clean silhouette, ribbed cuffs and lightweight insulated construction.",
       image1: "https://images.unsplash.com/photo-1551028719-00167b16eac5",
       image2: "https://images.unsplash.com/photo-1548883354-94bcfe321cbb",
       price: "€119",
@@ -104,6 +96,7 @@ const products = {
   ],
 };
 
+// Root endpoint
 app.get("/", (req, res) => {
   res.json({
     status: "ok",
@@ -119,6 +112,7 @@ app.get("/", (req, res) => {
   });
 });
 
+// Health check endpoint
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     uptime: process.uptime(),
@@ -127,6 +121,7 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// Get all products or filter by gender/category
 app.get("/api/products", (req, res) => {
   const { gender, category, search } = req.query;
 
@@ -141,7 +136,7 @@ app.get("/api/products", (req, res) => {
 
   if (category) {
     allProducts = allProducts.filter(
-      (p) => p.category && p.category.toLowerCase() === category.toLowerCase(),
+      (p) => p.category && p.category.toLowerCase() === category.toLowerCase()
     );
   }
 
@@ -150,7 +145,7 @@ app.get("/api/products", (req, res) => {
     allProducts = allProducts.filter(
       (p) =>
         p.itemName.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q),
+        p.description.toLowerCase().includes(q)
     );
   }
 
@@ -160,16 +155,13 @@ app.get("/api/products", (req, res) => {
   });
 });
 
+// Get products by gender
 app.get("/api/products/:gender", (req, res) => {
   const { gender } = req.params;
   const list = products[gender.toLowerCase()];
 
   if (!list) {
-    return res
-      .status(404)
-      .json({
-        error: `Gender category '${gender}' not found. Use 'men' or 'women'.`,
-      });
+    return res.status(404).json({ error: `Gender category '${gender}' not found. Use 'men' or 'women'.` });
   }
 
   res.json({
@@ -179,6 +171,7 @@ app.get("/api/products/:gender", (req, res) => {
   });
 });
 
+// Get single product
 app.get("/api/products/:gender/:id", (req, res) => {
   const { gender, id } = req.params;
   const list = products[gender.toLowerCase()];
@@ -236,3 +229,4 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`✓ DROPP Express server running at http://localhost:${PORT}`);
 });
+

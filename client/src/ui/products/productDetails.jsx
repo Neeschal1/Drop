@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import useCart from "../../hooks/carts";
 import useFavs from "../../hooks/favs";
 import { useToast } from "../../hooks/toast";
@@ -7,7 +7,6 @@ import { Data } from "../../utils/clothesProductsData";
 
 const ProductDetails = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const params = useParams();
   const { addToCart } = useCart();
   const { toggleFavourite, isFavourite } = useFavs();
@@ -20,7 +19,6 @@ const ProductDetails = () => {
     product = list.find((p) => String(p.item) === String(params.id));
   }
   if (!product) {
-    // Default to the first available product so the page never breaks on refresh
     product = Data[0].women[0];
   }
 
@@ -30,15 +28,14 @@ const ProductDetails = () => {
   const [sizeError, setSizeError] = useState(false);
   const [activeTab, setActiveTab] = useState("details"); // 'details' | 'shipping'
 
-  // Update selectedImage when product changes
-  useEffect(() => {
-    if (product) {
-      setSelectedImage(product.image1);
-      setSelectedSize(null);
-      setQuantity(1);
-      setSizeError(false);
-    }
-  }, [product]);
+  const [prevItem, setPrevItem] = useState(product?.item);
+  if (product?.item !== prevItem) {
+    setPrevItem(product?.item);
+    setSelectedImage(product?.image1);
+    setSelectedSize(null);
+    setQuantity(1);
+    setSizeError(false);
+  }
 
   const isFav = isFavourite(product);
 
