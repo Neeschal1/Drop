@@ -2,12 +2,6 @@ from sqlalchemy import Boolean, Column, Integer, String
 from database.settings import Base
 from pydantic import BaseModel
 
-class UserModel(BaseModel):
-    fullName: str
-    email: str
-    username: str
-    password: str
-
 class User(Base):
     __tablename__ = "users"
     
