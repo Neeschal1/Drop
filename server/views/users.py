@@ -4,14 +4,14 @@ from fastapi import status, APIRouter
 from fastapi.responses import JSONResponse
 from database.settings import Base
 from models.setup import User
-from schemas.auth import UserModel
+from schemas.auth import UserSignup, UserLogin
 from database.dependencies import db_dependencies
 
 usersrouter = APIRouter()
 
 # Create a new user
 @usersrouter.post('/users/post/', status_code=status.HTTP_201_CREATED)
-async def create_user(user: UserModel, db: db_dependencies):
+async def create_user(user: UserSignup, db: db_dependencies):
     try:
         user_data = user.model_dump()
         existing_username = db.query(User).filter(User.username == user.username).first()
@@ -62,7 +62,43 @@ async def create_user(user: UserModel, db: db_dependencies):
         }
     except Exception as e:
         db.rollback()
-        print("ERROR:", e)
+        return {"message": "Exception occured!", "detail": str(e)}
+    
+
+# Log in an existing account from the database
+@usersrouter.post('/users/login/', status_code=status.HTTP_200_OK)
+async def login(user: UserLogin, db: db_dependencies):
+    try:
+        db_user = db.query(User).filter(User.email == user.email).first()
+        
+        if not db_user:
+            return JSONResponse(
+                status_code=status.HTTP_404_NOT_FOUND,
+                content={
+                    "message": "Email not found!"
+                }
+            )
+        
+        entered_password = user.password    # password entered by user
+        db_password = db_user.password      # hashed password stored in database
+        match_password = comparePassword(entered_password, db_password)     # compare both passwords
+        
+        if not match_password:
+            return JSONResponse(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                content={
+                    "message": "Your password does not match with the account registered with the entered email. Try again!"
+                }
+            )
+         
+        access_token = create_access_token({"sub": db_user.id})   
+        return {
+            "message": "Login Successful :)",
+            "access_token": access_token
+        }
+        
+    except Exception as e:
+        db.rollback()
         return {"message": "Exception occured!", "detail": str(e)}
 
 
@@ -94,7 +130,7 @@ async def detch_user(userid: int, db: db_dependencies):
 
 # Update users data based on users id
 @usersrouter.put('/users/update/{usersid}', status_code=status.HTTP_201_CREATED)
-async def update_user(userid: int, db: db_dependencies, user:UserModel):
+async def update_user(userid: int, db: db_dependencies, user:UserSignup):
     try:
         db_user = db.query(User).filter(User.id == userid).first()
         if db_user is None:
