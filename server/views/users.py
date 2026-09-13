@@ -19,4 +19,10 @@ async def create_user(user: UserModel, db: db_dependencies):
 @usersrouter.get('/users/get/', status_code=status.HTTP_200_OK)
 async def fetch_user(db: db_dependencies):
     db_user = db.query(User).all()
+    return {"message": "Users list successfully listed :)", "data": db_user}
+
+
+@usersrouter.get('/users/fetch/{userid}', status_code=status.HTTP_202_ACCEPTED)
+async def update_user(userid: int, db: db_dependencies):
+    db_user = db.query(User).filter(User.id == userid).first()
     return {"message": "Users fetched successfully :)", "data": db_user}
