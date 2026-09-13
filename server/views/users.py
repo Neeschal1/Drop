@@ -62,3 +62,18 @@ async def update_user(userid: int, db: db_dependencies, user:UserUpdateModel):
         return {"message": "User's data updated successfully :)", "data": db_user}
     except Exception as e:
         return {"message": "Exception occured!", "detail": str(e)}
+    
+
+# Delete users data based on users id
+@usersrouter.delete('/users/delete/{userid}', status_code=status.HTTP_200_OK)
+async def delete_user(userid: int, db: db_dependencies):
+    try:
+        db_user = db.query(User).filter(User.id == userid).first()
+        if db_user is None:
+            return {"message": "User not found!"}
+        db.delete(db_user)
+        db.commit()
+        return {"message": "Users data successfully deleted :)"}
+    except Exception as e:
+        db.rollback()
+        return {"message": "Exception occured!", "detail": str(e)}
