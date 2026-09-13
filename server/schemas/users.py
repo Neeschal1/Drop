@@ -6,3 +6,9 @@ class UserModel(BaseModel):
     email: str
     username: str
     password: str
+    
+class UserUpdateModel(BaseModel):
+    fullName: str
+    email: str
+    username: str
+    password: str
