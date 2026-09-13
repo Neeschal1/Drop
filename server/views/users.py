@@ -1,9 +1,10 @@
 from utils.hashPassword import hash_password, comparePassword
+from utils.auth import create_access_token
 from fastapi import status, APIRouter
 from fastapi.responses import JSONResponse
 from database.settings import Base
 from models.setup import User
-from schemas.users import UserModel, UserUpdateModel
+from schemas.auth import UserModel
 from database.dependencies import db_dependencies
 
 usersrouter = APIRouter()
@@ -32,11 +33,21 @@ async def create_user(user: UserModel, db: db_dependencies):
                 }
             )
         
-        user_data['password'] = hash_password(user_data['password'])
-        db_user = User(**user_data)
+        hashed_password = hash_password(user_data['password'])
+        db_user = User(
+            fullName = user.fullName,
+            username = user.username,
+            email = user.email,
+            password = hashed_password
+        )
+        
         db.add(db_user)
         db.commit()
         db.refresh(db_user)
+        
+        access_token = create_access_token({
+            "sub": db_user.id
+        })
         
         return {
             "message": "User added successfully :)",
@@ -44,6 +55,9 @@ async def create_user(user: UserModel, db: db_dependencies):
                 "fullname": db_user.fullName,
                 "email": db_user.email,
                 "username": db_user.username
+            },
+            "tokens": {
+                "accessToken": access_token
             }
         }
     except Exception as e:
@@ -80,7 +94,7 @@ async def detch_user(userid: int, db: db_dependencies):
 
 # Update users data based on users id
 @usersrouter.put('/users/update/{usersid}', status_code=status.HTTP_201_CREATED)
-async def update_user(userid: int, db: db_dependencies, user:UserUpdateModel):
+async def update_user(userid: int, db: db_dependencies, user:UserModel):
     try:
         db_user = db.query(User).filter(User.id == userid).first()
         if db_user is None:
