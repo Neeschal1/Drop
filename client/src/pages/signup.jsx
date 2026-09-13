@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { useToast } from "../hooks/toast";
+import handleSignup from "../services/signupService";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    username: "",
     password: "",
     confirmPassword: "",
   });
@@ -20,7 +22,7 @@ const Signup = () => {
     if (passwordError) setPasswordError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setPasswordError("Passwords do not match");
@@ -29,14 +31,29 @@ const Signup = () => {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+
+    try {
+      const response = await handleSignup(
+        formData.name,
+        formData.email,
+        formData.username,
+        formData.password,
+      );
+
       showToast(
         `Account created! Welcome to DROPP, ${formData.name}!`,
         "success",
       );
+
       navigate("/");
-    }, 600);
+    } catch (err) {
+      showToast(
+        err.response?.data?.detail || "Unable to create account",
+        "error",
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -83,7 +100,7 @@ const Signup = () => {
                 value={formData.name}
                 onChange={handleChange}
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
-                placeholder="Jane Doe"
+                placeholder="Nischal Pokharel"
               />
             </div>
 
@@ -102,7 +119,26 @@ const Signup = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
-                placeholder="jane@example.com"
+                placeholder="neeschal@example.com"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label
+                htmlFor="username"
+                className="font-poppins text-xs text-white/60"
+              >
+                Username
+              </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                required
+                value={formData.username}
+                onChange={handleChange}
+                className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
+                placeholder="Enter your desired username"
               />
             </div>
 
