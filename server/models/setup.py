@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, JSON
+from sqlalchemy import Boolean, Column, Integer, String, JSON, ForeignKey, TIMESTAMP
 from database.settings import Base
 from pydantic import BaseModel
 

@@ -6,8 +6,9 @@ from database.dependencies import db_dependencies
 
 productsrouter = APIRouter()
 
+# Create a new product
 @productsrouter.post('/products/post/', status_code=status.HTTP_201_CREATED, tags=["Products"])
-def add_new_product(prod: ProductSchema, db: db_dependencies):
+async def add_new_product(prod: ProductSchema, db: db_dependencies):
     try:
         prod_data = prod.model_dump()
         existing_product_name = db.query(ProductDB).filter(prod.itemname == ProductDB.itemname).exists()
@@ -26,3 +27,16 @@ def add_new_product(prod: ProductSchema, db: db_dependencies):
         db.rollback()
         return {"message": "Exception occured!", "detail": str(e)}
     
+
+# List all products
+@productsrouter.get('/products/list-all-products/', status_code=status.HTTP_200_OK, tags={"Products"})
+async def list_all_products(db: db_dependencies):
+    try:
+        db_products = db.query(ProductDB).all()
+        if db_products is None:
+            return {"message": "No products available!"}
+        return {"message": "Products list successfully listed :)", "data": db_products}
+    except Exception as e:
+        db.rollback()
+        return {"message": "Exception occured!", "detail": str(e)}
+  
