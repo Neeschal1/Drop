@@ -2,6 +2,8 @@ import React from "react";
 import { Landing, Men, Women, Collection, Sales, About, Carts, Login, Signup, Favourites, ProductDescription } from "./pages/pagesLayout";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./hooks/scrollToTop";
+import SuccessPayment from "./constants/successPayment";
+import FailedPayment from "./constants/failedPayment";
 
 const App = () => {
   return (
@@ -21,6 +23,8 @@ const App = () => {
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/product-description" element={<ProductDescription />} />
           <Route path="/product/:category/:id" element={<ProductDescription />} />
+          <Route path="/payment/payment-successful" element={<SuccessPayment />} />
+          <Route path="/payment/payment-failed" element={<FailedPayment />} />
         </Routes>
       </Router>
     </div>

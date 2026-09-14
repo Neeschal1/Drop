@@ -32,8 +32,8 @@ async def create_payment(db: db_dependencies, pymnt: PaymentSchema, current_user
             checkout_session = stripe.checkout.Session.create(
                 line_items=lineitem,
                 mode='payment',
-                success_url="https://www.pinterest.com/pin/316729786314156192/",
-                cancel_url="https://www.pinterest.com/pin/1125968651884142/"
+                success_url="https://dropp-ten.vercel.app/payment/payment-successful",
+                cancel_url="https://dropp-ten.vercel.app/payment/payment-failed"
             )
             customer_payment = PaymentsDB(**pymt_dump, user_id=current_user)
             db.add(customer_payment)
