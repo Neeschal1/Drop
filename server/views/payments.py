@@ -8,9 +8,9 @@ import stripe
 
 stripe.api_key = Config.STRIPE_SECRET_KEY
 
-paymentsrouter = APIRouter()
+paymentsrouter = APIRouter(prefix='/payment', tags=["Payments"])
 
-@paymentsrouter.post('/payment/post/', status_code=status.HTTP_201_CREATED, tags=["Payments"])
+@paymentsrouter.post('/post/', status_code=status.HTTP_201_CREATED)
 async def create_payment(db: db_dependencies, pymnt: PaymentSchema, current_user: str = Depends(get_current_user)):
     try:
         pymt_dump = pymnt.model_dump()

@@ -4,10 +4,10 @@ from schemas.products import Product as ProductSchema
 from models.setup import Product as ProductDB
 from database.dependencies import db_dependencies
 
-productsrouter = APIRouter()
+productsrouter = APIRouter(prefix='/products', tags=["Products"])
 
 # Create a new product
-@productsrouter.post('/products/post/', status_code=status.HTTP_201_CREATED, tags=["Products"])
+@productsrouter.post('/post/', status_code=status.HTTP_201_CREATED)
 async def add_new_product(prod: ProductSchema, db: db_dependencies):
     try:
         prod_data = prod.model_dump()
@@ -29,7 +29,7 @@ async def add_new_product(prod: ProductSchema, db: db_dependencies):
     
 
 # List all products
-@productsrouter.get('/products/list-all-products/', status_code=status.HTTP_200_OK, tags={"Products"})
+@productsrouter.get('/list-all-products/', status_code=status.HTTP_200_OK)
 async def list_all_products(db: db_dependencies):
     try:
         db_products = db.query(ProductDB).all()

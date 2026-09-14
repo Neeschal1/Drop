@@ -4,10 +4,10 @@ from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
 from database.dependencies import db_dependencies
 
-reviewrouter = APIRouter()
+reviewrouter = APIRouter(prefix='/review', tags=["Review"])
 
 # Create a new customer review
-@reviewrouter.post('/review/post/', status_code=status.HTTP_201_CREATED, tags=["Review"])
+@reviewrouter.post('/post/', status_code=status.HTTP_201_CREATED)
 async def create_review(review: ReviewSchema, db: db_dependencies):
     try:
         rvw = review.model_dump()
@@ -22,7 +22,7 @@ async def create_review(review: ReviewSchema, db: db_dependencies):
 
 
 # List all customer reviews
-@reviewrouter.get('/review/list-all-review/', status_code=status.HTTP_200_OK, tags=["Review"])
+@reviewrouter.get('/list-all-review/', status_code=status.HTTP_200_OK)
 async def list_all_review(db: db_dependencies):
     try:
         db_review = db.query(ReviewDB).all()
