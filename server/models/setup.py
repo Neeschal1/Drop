@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean, Column, Integer, String, JSON, ForeignKey, TIMESTAMP
 from database.settings import Base
+from sqlalchemy.sql import func
 from pydantic import BaseModel
 
 class User(Base):
@@ -27,3 +28,14 @@ class Product(Base):
     details_and_care = Column(JSON)
     shipping_and_return = Column(JSON)
     
+
+
+class Review(Base):
+    __tablename__ = "customerReview"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    product = Column(Integer, ForeignKey("products.id"), nullable=False)
+    customer_name = Column(String(50))
+    customer_rating = Column(Integer)
+    review_timing = Column(TIMESTAMP, server_default=func.now())
+    customer_review = Column(String(1000))
