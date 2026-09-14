@@ -3,6 +3,7 @@ from models import setup
 from views.users import usersrouter
 from views.products import productsrouter
 from views.review import reviewrouter
+from views.payments import paymentsrouter
 from fastapi.middleware.cors import CORSMiddleware
 from database.settings import engine
 
@@ -21,5 +22,6 @@ app.add_middleware(
 app.include_router(usersrouter)
 app.include_router(productsrouter)
 app.include_router(reviewrouter)
+app.include_router(paymentsrouter)
 
 setup.Base.metadata.create_all(bind=engine)

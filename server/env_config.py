@@ -12,3 +12,5 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY')
     HASH_ALGORITHM = os.getenv('HASH_ALGORITHM')
     TOKEN_EXPIRY = os.getenv('TOKEN_EXPIRY')
+    
+    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')

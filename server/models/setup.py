@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, JSON, ForeignKey, TIMESTAMP
+from sqlalchemy import Boolean, Column, Integer, String, JSON, ForeignKey, TIMESTAMP, Float
 from database.settings import Base
 from sqlalchemy.sql import func
 from pydantic import BaseModel
@@ -29,7 +29,6 @@ class Product(Base):
     shipping_and_return = Column(JSON)
     
 
-
 class Review(Base):
     __tablename__ = "customerReview"
     
@@ -39,3 +38,19 @@ class Review(Base):
     customer_rating = Column(Integer)
     review_timing = Column(TIMESTAMP, server_default=func.now())
     customer_review = Column(String(1000))
+    
+    
+class Payments(Base):
+    __tablename__ = "payments"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    product = Column(Integer, ForeignKey("products.id"), nullable=False)
+    cost = Column(Float)
+    quantity = Column(Integer)
+    fullname = Column(String(50))
+    email_address = Column(String(100))
+    shipping_address = Column(String(100))
+    city = Column(String(50))
+    postal_code = Column(Integer)
+    payment_method = Column(String(20))
+    

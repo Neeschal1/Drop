@@ -34,5 +34,3 @@ async def list_all_review(db: db_dependencies):
     except Exception as e:
         db.rollback()
         return {"message": "Exception occured!", "detail": str(e)}
-    
-    

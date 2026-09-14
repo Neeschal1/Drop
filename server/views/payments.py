@@ -1,0 +1,47 @@
+from database.dependencies import db_dependencies
+from models.setup import Payments as PaymentsDB
+from schemas.payments import Payment as PaymentSchema
+from fastapi import APIRouter, status
+from fastapi.responses import JSONResponse
+from env_config import Config
+import stripe
+
+stripe.api_key = Config.STRIPE_SECRET_KEY
+
+paymentsrouter = APIRouter()
+
+@paymentsrouter.post('/payment/post/', status_code=status.HTTP_201_CREATED, tags=["Payments"])
+async def create_payment(db: db_dependencies, pymnt: PaymentSchema):
+    try:
+        pymt_dump = pymnt.model_dump()
+        priceofproduct = pymnt.cost
+        productname = pymnt.product
+        try:
+            lineitem = [
+                {
+                    "quantity": pymnt.quantity,
+                    "price_data": {
+                        "currency": "usd",
+                        "unit_amount": int(priceofproduct * 152),
+                        "product_data": {
+                            "name": productname,
+                        },
+                    },
+                }
+            ]
+            checkout_session = stripe.checkout.Session.create(
+                line_items=lineitem,
+                mode='payment',
+                success_url="https://www.pinterest.com/pin/316729786314156192/",
+                cancel_url="https://www.pinterest.com/pin/1125968651884142/"
+            )
+            customer_payment = PaymentsDB(**pymt_dump)
+            db.add(customer_payment)
+            db.commit()
+            db.refresh(customer_payment)
+            return {"message": "payment created!", "buyers_detail": pymt_dump, "url": checkout_session.url}
+        except Exception as e:
+            return {"Message":"Payment Error Occured!", "Issue":str(e)}
+    except Exception as e:
+        db.rollback()
+        return {"message": "Exception occured!", "detail": str(e)}
