@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from models import setup
 from views.users import usersrouter
+from views.products import productsrouter
 from fastapi.middleware.cors import CORSMiddleware
 from database.settings import engine
 
@@ -17,5 +18,6 @@ app.add_middleware(
 )
 
 app.include_router(usersrouter)
+app.include_router(productsrouter)
 
 setup.Base.metadata.create_all(bind=engine)

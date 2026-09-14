@@ -10,7 +10,7 @@ from database.dependencies import db_dependencies
 usersrouter = APIRouter()
 
 # Create a new user
-@usersrouter.post('/users/post/', status_code=status.HTTP_201_CREATED)
+@usersrouter.post('/users/post/', status_code=status.HTTP_201_CREATED, tags=["User Authentication"])
 async def create_user(user: UserSignup, db: db_dependencies):
     try:
         user_data = user.model_dump()
@@ -66,7 +66,7 @@ async def create_user(user: UserSignup, db: db_dependencies):
     
 
 # Log in an existing account from the database
-@usersrouter.post('/users/login/', status_code=status.HTTP_200_OK)
+@usersrouter.post('/users/login/', status_code=status.HTTP_200_OK, tags=["User Authentication"])
 async def login(user: UserLogin, db: db_dependencies):
     try:
         db_user = db.query(User).filter(User.email == user.email).first()
@@ -103,7 +103,7 @@ async def login(user: UserLogin, db: db_dependencies):
 
 
 # List all the users detail
-@usersrouter.get('/users/get/', status_code=status.HTTP_200_OK)
+@usersrouter.get('/users/get/', status_code=status.HTTP_200_OK, tags=["User Authentication"])
 async def list_user(db: db_dependencies):
     try:
         db_user = db.query(User).all()
@@ -116,7 +116,7 @@ async def list_user(db: db_dependencies):
 
 
 # Fetch specific users detail
-@usersrouter.get('/users/fetch/{userid}', status_code=status.HTTP_202_ACCEPTED)
+@usersrouter.get('/users/fetch/{userid}', status_code=status.HTTP_202_ACCEPTED, tags=["User Authentication"])
 async def detch_user(userid: int, db: db_dependencies):
     try:
         db_user = db.query(User).filter(User.id == userid).first()
@@ -129,7 +129,7 @@ async def detch_user(userid: int, db: db_dependencies):
 
 
 # Update users data based on users id
-@usersrouter.put('/users/update/{usersid}', status_code=status.HTTP_201_CREATED)
+@usersrouter.put('/users/update/{usersid}', status_code=status.HTTP_201_CREATED, tags=["User Authentication"])
 async def update_user(userid: int, db: db_dependencies, user:UserSignup):
     try:
         db_user = db.query(User).filter(User.id == userid).first()
@@ -152,7 +152,7 @@ async def update_user(userid: int, db: db_dependencies, user:UserSignup):
     
 
 # Delete users data based on users id
-@usersrouter.delete('/users/delete/{userid}', status_code=status.HTTP_200_OK)
+@usersrouter.delete('/users/delete/{userid}', status_code=status.HTTP_200_OK, tags=["User Authentication"])
 async def delete_user(userid: int, db: db_dependencies):
     try:
         db_user = db.query(User).filter(User.id == userid).first()
