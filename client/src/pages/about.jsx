@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../constants/navbar";
 import Footer from "../constants/footer";
+import Nischal from "../assets/images/nischalBabu.jpg"
+import Keshav from "../assets/images/keshavBabu.jpg"
 
 const About = () => {
   const navigate = useNavigate();
@@ -146,52 +148,36 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
             <div className="flex flex-col">
               <div className="aspect-3/4 bg-neutral-100 overflow-hidden mb-3">
                 <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop"
-                  alt="Elena Vance"
+                  src={Nischal}
+                  alt="Nischal Pokharel"
                   className="w-full h-full object-cover"
                 />
               </div>
               <h3 className="font-medium text-base text-neutral-900">
-                Elena Vance
+                Nischal Pokharel
               </h3>
               <span className="text-xs text-neutral-500">
-                Head of Pattern & Silhouette Design
+                Frontend Developer
               </span>
             </div>
 
             <div className="flex flex-col">
               <div className="aspect-3/4 bg-neutral-100 overflow-hidden mb-3">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop"
-                  alt="Marcus Cole"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="font-medium text-base text-neutral-900">
-                Marcus Cole
-              </h3>
-              <span className="text-xs text-neutral-500">
-                Director of Textile Sourcing
-              </span>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="aspect-3/4 bg-neutral-100 overflow-hidden mb-3">
-                <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
+                  src={Keshav}
                   alt="Aria Chen"
                   className="w-full h-full object-cover"
                 />
               </div>
               <h3 className="font-medium text-base text-neutral-900">
-                Aria Chen
+                Keshav Prasad Neupane
               </h3>
               <span className="text-xs text-neutral-500">
-                Creative Direction & Curation
+                Backend Developer
               </span>
             </div>
           </div>
