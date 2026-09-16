@@ -219,7 +219,10 @@ const Navbar = ({ bgstate }) => {
                   <span className="text-neutral-400">Hi, </span>
                   <strong>{user?.fullName}</strong>
                 </div>
-                <AuthButton navigateTo="/bought-products" buttonName="BOUGHT PRODUCTS" />
+                <AuthButton
+                  navigateTo="/bought-products"
+                  buttonName="BOUGHT PRODUCTS"
+                />
                 <button
                   onClick={() => {
                     handleLogout();
@@ -233,7 +236,10 @@ const Navbar = ({ bgstate }) => {
             ) : (
               <>
                 <AuthButton navigateTo="/login" buttonName="ACCOUNT" />
-                <AuthButton navigateTo="/bought-products" buttonName="BOUGHT PRODUCTS" />
+                <AuthButton
+                  navigateTo="/bought-products"
+                  buttonName="BOUGHT PRODUCTS"
+                />
               </>
             )}
             <AuthButton navigateTo="/favourites" buttonName="FAVS" />

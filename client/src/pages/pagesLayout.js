@@ -12,16 +12,16 @@ import ProductDescription from "./productDescription";
 import BoughtProducts from "./boughtProducts";
 
 export {
-    Landing,
-    Men,
-    Women,
-    About,
-    Sales,
-    Collection,
-    Carts,
-    Login,
-    Signup,
-    Favourites,
-    ProductDescription,
-    BoughtProducts
-}
+  Landing,
+  Men,
+  Women,
+  About,
+  Sales,
+  Collection,
+  Carts,
+  Login,
+  Signup,
+  Favourites,
+  ProductDescription,
+  BoughtProducts,
+};

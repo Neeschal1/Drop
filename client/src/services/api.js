@@ -1,5 +1,6 @@
 import axios from "axios";
-const rawUrl = import.meta.env.VITE_API_URL || "https://drop-1-5c1h.onrender.com";
+const rawUrl =
+  import.meta.env.VITE_API_URL || "https://drop-1-5c1h.onrender.com";
 const API_BASE_URL = rawUrl.replace(/\/+$/, "");
 
 const api = axios.create({

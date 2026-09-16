@@ -61,7 +61,8 @@ const BoughtProducts = () => {
               No bought products yet
             </h2>
             <p className="font-poppins font-light text-sm text-neutral-600 max-w-md mb-8">
-              Items you purchase will automatically appear here right after checkout.
+              Items you purchase will automatically appear here right after
+              checkout.
             </p>
             <button
               onClick={() => navigate("/collection")}
@@ -111,15 +112,24 @@ const BoughtProducts = () => {
                       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-neutral-600">
                         {item.selectedSize && (
                           <span>
-                            Size: <strong className="text-neutral-900">{item.selectedSize}</strong>
+                            Size:{" "}
+                            <strong className="text-neutral-900">
+                              {item.selectedSize}
+                            </strong>
                           </span>
                         )}
                         <span>
-                          Qty: <strong className="text-neutral-900">{item.quantity}</strong>
+                          Qty:{" "}
+                          <strong className="text-neutral-900">
+                            {item.quantity}
+                          </strong>
                         </span>
                         {item.purchaseDate && (
                           <span>
-                            Date: <strong className="text-neutral-900">{item.purchaseDate}</strong>
+                            Date:{" "}
+                            <strong className="text-neutral-900">
+                              {item.purchaseDate}
+                            </strong>
                           </span>
                         )}
                       </div>

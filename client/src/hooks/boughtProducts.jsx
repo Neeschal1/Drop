@@ -39,8 +39,10 @@ export const BoughtProductsProvider = ({ children }) => {
         const remotePayments = res.data.data;
         // Merge remote payments if any
         setBoughtItems((prevLocal) => {
-          const localMap = new Map(prevLocal.map((i) => [i.orderId || i.id, i]));
-          
+          const localMap = new Map(
+            prevLocal.map((i) => [i.orderId || i.id, i]),
+          );
+
           remotePayments.forEach((p) => {
             const orderKey = `ORD-${p.id + 100000}`;
             if (!localMap.has(orderKey) && !localMap.has(p.id)) {
@@ -91,7 +93,12 @@ export const BoughtProductsProvider = ({ children }) => {
       price: item.price || `€${orderDetails.totalCost || 0}`,
       selectedSize: item.selectedSize || "Standard",
       quantity: item.quantity || 1,
-      images: item.images || item.image ? (Array.isArray(item.images) ? item.images : [item.image]) : [],
+      images:
+        item.images || item.image
+          ? Array.isArray(item.images)
+            ? item.images
+            : [item.image]
+          : [],
       purchaseDate: formattedDate,
       timestamp: Date.now(),
       paymentMethod: orderDetails.paymentMethod || "Credit Card",
