@@ -1,13 +1,13 @@
 import axios from "axios";
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+const rawUrl = import.meta.env.VITE_API_URL || "https://drop-1-5c1h.onrender.com";
+const API_BASE_URL = rawUrl.replace(/\/+$/, "");
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
-}
-);
+});
 
 // Request interceptor: attach Bearer token if available
 api.interceptors.request.use(

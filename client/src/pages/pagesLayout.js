@@ -9,6 +9,7 @@ import Signup from "./signup";
 import Login from "./login";
 import Favourites from "./favs";
 import ProductDescription from "./productDescription";
+import BoughtProducts from "./boughtProducts";
 
 export {
     Landing,
@@ -21,5 +22,6 @@ export {
     Login,
     Signup,
     Favourites,
-    ProductDescription
+    ProductDescription,
+    BoughtProducts
 }

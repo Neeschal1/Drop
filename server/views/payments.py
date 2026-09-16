@@ -97,7 +97,12 @@ async def list_my_payments(
 ):
     try:
         user_id = int(current_user)
-        user_payments = db.query(PaymentsDB).all()
+        user_payments = (
+            db.query(PaymentsDB)
+            .filter(PaymentsDB.user_id == user_id)
+            .order_by(PaymentsDB.id.desc())
+            .all()
+        )
         return {"message": "Payments retrieved successfully", "data": user_payments}
     except Exception as e:
         return JSONResponse(

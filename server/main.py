@@ -7,16 +7,30 @@ from views.payments import paymentsrouter
 from fastapi.middleware.cors import CORSMiddleware
 from database.settings import engine
 
+from env_config import Config
+
 app = FastAPI()
 
-origins = ["http://localhost:5173"]
+# Allowed origins: support custom ALLOWED_ORIGINS env var, Vercel deployments, and localhost
+raw_origins = Config.ALLOWED_ORIGINS
+if raw_origins:
+    origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
+else:
+    origins = [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:5173",
+        "https://dropp-ten.vercel.app/",
+        "dropp-ten.vercel.app/"
+    ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = origins,
-    allow_credentials = True,
-    allow_methods = ["*"],
-    allow_headers = ["*"],
+    allow_origins=origins,
+    allow_origin_regex=r"https://.*\.vercel\.app|http://localhost:\d+|https://.*",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(usersrouter)

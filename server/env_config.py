@@ -14,3 +14,4 @@ class Config:
     TOKEN_EXPIRY = os.getenv('TOKEN_EXPIRY')
     
     STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+    ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS')
