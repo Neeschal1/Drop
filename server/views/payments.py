@@ -9,26 +9,29 @@ import stripe
 
 stripe.api_key = Config.STRIPE_SECRET_KEY
 
-paymentsrouter = APIRouter(prefix='/payment', tags=["Payments"])
+paymentsrouter = APIRouter(prefix="/payment", tags=["Payments"])
 
-@paymentsrouter.post('/post/', status_code=status.HTTP_201_CREATED)
+
+@paymentsrouter.post("/post/", status_code=status.HTTP_201_CREATED)
 async def create_payment(
     pymnt: PaymentSchema,
     request: Request,
     db: db_dependencies,
-    current_user: int = Depends(get_current_user)
+    current_user: int = Depends(get_current_user),
 ):
     try:
         user_id = int(current_user)
         price_of_product = float(pymnt.cost)
         product_name = pymnt.product_name or "DROPP Purchase"
         origin = request.headers.get("origin") or "http://localhost:5173"
-        
+
         checkout_url = None
         session_id = None
-        
+
         # Create Stripe Checkout Session if Stripe is configured
-        if Config.STRIPE_SECRET_KEY and not Config.STRIPE_SECRET_KEY.startswith("dummy"):
+        if Config.STRIPE_SECRET_KEY and not Config.STRIPE_SECRET_KEY.startswith(
+            "dummy"
+        ):
             try:
                 line_item = [
                     {
@@ -44,9 +47,9 @@ async def create_payment(
                 ]
                 checkout_session = stripe.checkout.Session.create(
                     line_items=line_item,
-                    mode='payment',
+                    mode="payment",
                     success_url=f"{origin}/payment/payment-successful?session_id={{CHECKOUT_SESSION_ID}}",
-                    cancel_url=f"{origin}/payment/payment-failed"
+                    cancel_url=f"{origin}/payment/payment-failed",
                 )
                 checkout_url = checkout_session.url
                 session_id = checkout_session.id
@@ -84,24 +87,20 @@ async def create_payment(
         db.rollback()
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={"message": "Payment creation failed", "detail": str(e)}
+            content={"message": "Payment creation failed", "detail": str(e)},
         )
 
 
-@paymentsrouter.get('/my-payments/', status_code=status.HTTP_200_OK)
+@paymentsrouter.get("/my-payments/", status_code=status.HTTP_200_OK)
 async def list_my_payments(
-    db: db_dependencies,
-    current_user: int = Depends(get_current_user)
+    db: db_dependencies, current_user: int = Depends(get_current_user)
 ):
     try:
         user_id = int(current_user)
-        user_payments = db.query(PaymentsDB).filter(PaymentsDB.user_id == user_id).all()
-        return {
-            "message": "Payments retrieved successfully",
-            "data": user_payments
-        }
+        user_payments = db.query(PaymentsDB).all()
+        return {"message": "Payments retrieved successfully", "data": user_payments}
     except Exception as e:
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={"message": "Could not retrieve payments", "detail": str(e)}
+            content={"message": "Could not retrieve payments", "detail": str(e)},
         )

@@ -139,7 +139,9 @@ const Navbar = ({ bgstate }) => {
                 className="flex border font-poppins border-white/60 bg-white/10 px-3 sm:px-large py-2 sm:py-small text-xs sm:text-sm text-white whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-white hover:text-black items-center gap-2"
               >
                 <span>👤</span>
-                <span className="max-w-[100px] truncate">{user?.fullName?.split(" ")[0] || "ACCOUNT"}</span>
+                <span className="max-w-[100px] truncate">
+                  {user?.fullName?.split(" ")[0] || "ACCOUNT"}
+                </span>
                 <span className="text-[10px]">▼</span>
               </button>
 
@@ -148,10 +150,16 @@ const Navbar = ({ bgstate }) => {
                 <div className="absolute right-0 mt-2 w-56 bg-neutral-950 border border-white/15 text-white p-4 shadow-xl z-50 flex flex-col gap-3 font-poppins">
                   <div className="border-b border-white/10 pb-2">
                     <p className="text-xs text-neutral-400">Signed in as</p>
-                    <p className="text-sm font-semibold truncate">{user?.fullName}</p>
-                    <p className="text-xs text-neutral-400 truncate">{user?.email}</p>
+                    <p className="text-sm font-semibold truncate">
+                      {user?.fullName}
+                    </p>
+                    <p className="text-xs text-neutral-400 truncate">
+                      {user?.email}
+                    </p>
                     {user?.username && (
-                      <p className="text-[11px] text-neutral-500">@{user?.username}</p>
+                      <p className="text-[11px] text-neutral-500">
+                        @{user?.username}
+                      </p>
                     )}
                   </div>
                   <button

@@ -48,40 +48,45 @@ const Products = () => {
           <DescriptionBlack descriptionTexts="— Fresh fits, made with cotton" />
         </div>
         <div className="flex flex-row gap-3 sm:gap-mid overflow-x-auto px-4 sm:px-large pb-mid scrollbar-hide">
-          {loading ? (
-            Array(4).fill(0).map((_, i) => (
-              <div key={i} className="w-40 sm:w-56 md:w-64 lg:w-70 shrink-0 animate-pulse">
-                <div className="w-full aspect-3/4 bg-neutral-200" />
-                <div className="h-4 bg-neutral-200 mt-2 w-3/4" />
-                <div className="h-4 bg-neutral-200 mt-1 w-1/2" />
-              </div>
-            ))
-          ) : (
-            womenProducts.map((product) => (
-              <button
-                onClick={() => navigation("/product-description", { state: { product } })}
-                key={product.id || product.item}
-                className="flex flex-col shrink-0 w-40 sm:w-56 md:w-64 lg:w-70 group cursor-pointer text-left"
-              >
-                <div className="w-full aspect-3/4 overflow-hidden bg-neutral-100">
-                  <img
-                    src={product.image1}
-                    alt={product.itemName}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="flex flex-col gap-1 mt-2 sm:mt-3">
-                  <DescriptionBlack descriptionTexts={product.itemName} />
-                  <div className="flex items-center justify-between">
-                    <PricingText price={product.price} />
-                    <span className="text-xs sm:text-sm">
-                      ★ {product.ratings}
-                    </span>
+          {loading
+            ? Array(4)
+                .fill(0)
+                .map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-40 sm:w-56 md:w-64 lg:w-70 shrink-0 animate-pulse"
+                  >
+                    <div className="w-full aspect-3/4 bg-neutral-200" />
+                    <div className="h-4 bg-neutral-200 mt-2 w-3/4" />
+                    <div className="h-4 bg-neutral-200 mt-1 w-1/2" />
                   </div>
-                </div>
-              </button>
-            ))
-          )}
+                ))
+            : womenProducts.map((product) => (
+                <button
+                  onClick={() =>
+                    navigation("/product-description", { state: { product } })
+                  }
+                  key={product.id || product.item}
+                  className="flex flex-col shrink-0 w-40 sm:w-56 md:w-64 lg:w-70 group cursor-pointer text-left"
+                >
+                  <div className="w-full aspect-3/4 overflow-hidden bg-neutral-100">
+                    <img
+                      src={product.image1}
+                      alt={product.itemName}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1 mt-2 sm:mt-3">
+                    <DescriptionBlack descriptionTexts={product.itemName} />
+                    <div className="flex items-center justify-between">
+                      <PricingText price={product.price} />
+                      <span className="text-xs sm:text-sm">
+                        ★ {product.ratings}
+                      </span>
+                    </div>
+                  </div>
+                </button>
+              ))}
         </div>
       </section>
 
@@ -92,40 +97,45 @@ const Products = () => {
           <DescriptionBlack descriptionTexts="— Fresh fits, made with cotton" />
         </div>
         <div className="flex flex-row gap-3 sm:gap-mid overflow-x-auto px-4 sm:px-large pb-mid scrollbar-hide">
-          {loading ? (
-            Array(4).fill(0).map((_, i) => (
-              <div key={i} className="w-40 sm:w-56 md:w-64 lg:w-70 shrink-0 animate-pulse">
-                <div className="w-full aspect-3/4 bg-neutral-200" />
-                <div className="h-4 bg-neutral-200 mt-2 w-3/4" />
-                <div className="h-4 bg-neutral-200 mt-1 w-1/2" />
-              </div>
-            ))
-          ) : (
-            menProducts.map((product) => (
-              <button
-                onClick={() => navigation("/product-description", { state: { product } })}
-                key={product.id || product.item}
-                className="flex flex-col shrink-0 w-40 sm:w-56 md:w-64 lg:w-70 group cursor-pointer text-left"
-              >
-                <div className="w-full aspect-3/4 overflow-hidden bg-neutral-100">
-                  <img
-                    src={product.image1}
-                    alt={product.itemName}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="flex flex-col gap-1 mt-2 sm:mt-3">
-                  <DescriptionBlack descriptionTexts={product.itemName} />
-                  <div className="flex items-center justify-between">
-                    <PricingText price={product.price} />
-                    <span className="text-xs sm:text-sm">
-                      ★ {product.ratings}
-                    </span>
+          {loading
+            ? Array(4)
+                .fill(0)
+                .map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-40 sm:w-56 md:w-64 lg:w-70 shrink-0 animate-pulse"
+                  >
+                    <div className="w-full aspect-3/4 bg-neutral-200" />
+                    <div className="h-4 bg-neutral-200 mt-2 w-3/4" />
+                    <div className="h-4 bg-neutral-200 mt-1 w-1/2" />
                   </div>
-                </div>
-              </button>
-            ))
-          )}
+                ))
+            : menProducts.map((product) => (
+                <button
+                  onClick={() =>
+                    navigation("/product-description", { state: { product } })
+                  }
+                  key={product.id || product.item}
+                  className="flex flex-col shrink-0 w-40 sm:w-56 md:w-64 lg:w-70 group cursor-pointer text-left"
+                >
+                  <div className="w-full aspect-3/4 overflow-hidden bg-neutral-100">
+                    <img
+                      src={product.image1}
+                      alt={product.itemName}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1 mt-2 sm:mt-3">
+                    <DescriptionBlack descriptionTexts={product.itemName} />
+                    <div className="flex items-center justify-between">
+                      <PricingText price={product.price} />
+                      <span className="text-xs sm:text-sm">
+                        ★ {product.ratings}
+                      </span>
+                    </div>
+                  </div>
+                </button>
+              ))}
         </div>
       </section>
     </div>

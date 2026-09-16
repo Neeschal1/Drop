@@ -53,7 +53,10 @@ const Carts = () => {
 
   const handleOpenCheckout = (total) => {
     if (!isAuthenticated) {
-      showToast("Please log in with your account to proceed to payment.", "error");
+      showToast(
+        "Please log in with your account to proceed to payment.",
+        "error",
+      );
       navigate("/login?redirect=/carts");
       return;
     }
@@ -85,7 +88,11 @@ const Carts = () => {
 
       const paymentPayload = {
         product: primaryItem?.id || primaryItem?.item || null,
-        product_name: cartItems.map((i) => i.itemName || i.itemname).join(", ").slice(0, 100) || "DROPP Fashion Order",
+        product_name:
+          cartItems
+            .map((i) => i.itemName || i.itemname)
+            .join(", ")
+            .slice(0, 100) || "DROPP Fashion Order",
         cost: productCost,
         quantity: cartItems.reduce((acc, item) => acc + item.quantity, 0),
         fullname: checkoutData.fullName,
@@ -99,7 +106,11 @@ const Carts = () => {
       const response = await api.post("/payment/post/", paymentPayload);
 
       // Check if Stripe Checkout session URL was provided
-      if (response.data && response.data.url && response.data.url.includes("checkout.stripe.com")) {
+      if (
+        response.data &&
+        response.data.url &&
+        response.data.url.includes("checkout.stripe.com")
+      ) {
         showToast("Redirecting to secure Stripe Checkout...", "info");
         window.location.href = response.data.url;
         return;
@@ -175,7 +186,10 @@ const Carts = () => {
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
                   {trendingProducts.map((product) => (
-                    <ProductCard key={product.id || product.item} product={product} />
+                    <ProductCard
+                      key={product.id || product.item}
+                      product={product}
+                    />
                   ))}
                 </div>
               </div>
@@ -351,7 +365,10 @@ const Carts = () => {
                     {isProcessing ? (
                       <span>Processing Authenticated Payment...</span>
                     ) : (
-                      <span>Confirm & Pay (€{checkoutTotal || getCartTotal().toFixed(2)})</span>
+                      <span>
+                        Confirm & Pay (€
+                        {checkoutTotal || getCartTotal().toFixed(2)})
+                      </span>
                     )}
                   </button>
                 </form>

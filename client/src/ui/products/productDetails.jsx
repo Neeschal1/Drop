@@ -3,7 +3,10 @@ import { useLocation, useParams } from "react-router-dom";
 import useCart from "../../hooks/carts";
 import useFavs from "../../hooks/favs";
 import { useToast } from "../../hooks/toast";
-import { getProductById, normalizeProduct } from "../../services/productService";
+import {
+  getProductById,
+  normalizeProduct,
+} from "../../services/productService";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -12,15 +15,20 @@ const ProductDetails = () => {
   const { toggleFavourite, isFavourite } = useFavs();
   const { showToast } = useToast();
 
-  const [product, setProduct] = useState(() => normalizeProduct(location.state?.product));
-  const [selectedImage, setSelectedImage] = useState(() => location.state?.product?.image1 || "");
+  const [product, setProduct] = useState(() =>
+    normalizeProduct(location.state?.product),
+  );
+  const [selectedImage, setSelectedImage] = useState(
+    () => location.state?.product?.image1 || "",
+  );
   const [selectedSize, setSelectedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [sizeError, setSizeError] = useState(false);
   const [activeTab, setActiveTab] = useState("details"); // 'details' | 'shipping'
   const [loading, setLoading] = useState(!location.state?.product);
 
-  const currentProductItem = location.state?.product?.item || location.state?.product?.id;
+  const currentProductItem =
+    location.state?.product?.item || location.state?.product?.id;
   const [prevProductItem, setPrevProductItem] = useState(currentProductItem);
 
   if (currentProductItem && currentProductItem !== prevProductItem) {
@@ -68,7 +76,7 @@ const ProductDetails = () => {
     addToCart(product, selectedSize, quantity);
     showToast(
       `Added ${quantity} × ${product.itemName} (${selectedSize}) to bag!`,
-      "success"
+      "success",
     );
   };
 
@@ -86,7 +94,9 @@ const ProductDetails = () => {
     return (
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
         <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-neutral-500 text-sm">Loading product details from database...</p>
+        <p className="text-neutral-500 text-sm">
+          Loading product details from database...
+        </p>
       </div>
     );
   }
@@ -173,14 +183,23 @@ const ProductDetails = () => {
               <span className="font-medium text-neutral-900">
                 Select Size:{" "}
                 {selectedSize ? (
-                  <strong className="text-black uppercase">{selectedSize}</strong>
+                  <strong className="text-black uppercase">
+                    {selectedSize}
+                  </strong>
                 ) : (
-                  <span className="text-neutral-400 font-normal">Choose one</span>
+                  <span className="text-neutral-400 font-normal">
+                    Choose one
+                  </span>
                 )}
               </span>
               <button
                 type="button"
-                onClick={() => showToast("Sizes fit true-to-size with a relaxed drape.", "info")}
+                onClick={() =>
+                  showToast(
+                    "Sizes fit true-to-size with a relaxed drape.",
+                    "info",
+                  )
+                }
                 className="text-neutral-500 underline hover:text-black cursor-pointer"
               >
                 Size Guide
@@ -215,7 +234,9 @@ const ProductDetails = () => {
 
           {/* Quantity selector */}
           <div className="flex items-center gap-4">
-            <span className="text-xs font-poppins text-neutral-600">Quantity:</span>
+            <span className="text-xs font-poppins text-neutral-600">
+              Quantity:
+            </span>
             <div className="flex items-center border border-black/20 rounded-xs">
               <button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -253,7 +274,9 @@ const ProductDetails = () => {
               title={isFav ? "Saved in favourites" : "Save to favourites"}
             >
               <span className="text-base">{isFav ? "♥" : "♡"}</span>
-              <span className="sm:hidden text-xs">{isFav ? "Saved" : "Save to Favourites"}</span>
+              <span className="sm:hidden text-xs">
+                {isFav ? "Saved" : "Save to Favourites"}
+              </span>
             </button>
           </div>
 
@@ -286,23 +309,34 @@ const ProductDetails = () => {
               {activeTab === "details" ? (
                 <ul className="space-y-1.5 list-disc list-inside">
                   {details_and_care.length > 0 ? (
-                    details_and_care.map((item, idx) => <li key={idx}>{item}</li>)
+                    details_and_care.map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))
                   ) : (
                     <>
                       <li>100% Ring-spun heavyweight combed cotton</li>
                       <li>Preshrunk fabric to minimize shrinkage</li>
-                      <li>Reinforced twin-needle stitching at collar and cuffs</li>
-                      <li>Machine wash cold inside-out, hang dry recommended</li>
+                      <li>
+                        Reinforced twin-needle stitching at collar and cuffs
+                      </li>
+                      <li>
+                        Machine wash cold inside-out, hang dry recommended
+                      </li>
                     </>
                   )}
                 </ul>
               ) : (
                 <div className="space-y-1.5">
                   {shipping_and_return.length > 0 ? (
-                    shipping_and_return.map((item, idx) => <p key={idx}>• {item}</p>)
+                    shipping_and_return.map((item, idx) => (
+                      <p key={idx}>• {item}</p>
+                    ))
                   ) : (
                     <>
-                      <p>• Complimentary standard shipping on all orders over €100.</p>
+                      <p>
+                        • Complimentary standard shipping on all orders over
+                        €100.
+                      </p>
                       <p>• Hassle-free 30-day returns and exchanges.</p>
                       <p>• Estimated delivery: 2-4 business days.</p>
                     </>

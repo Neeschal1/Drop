@@ -29,11 +29,11 @@ const Collection = () => {
 
   const womenProducts = useMemo(
     () => products.filter((p) => p.gender === "female"),
-    [products]
+    [products],
   );
   const menProducts = useMemo(
     () => products.filter((p) => p.gender === "male"),
-    [products]
+    [products],
   );
 
   const currentProducts = useMemo(() => {
@@ -89,7 +89,9 @@ const Collection = () => {
         {loading ? (
           <div className="w-full max-w-7xl mx-auto px-4 py-24 text-center">
             <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-neutral-500 text-sm">Loading complete collection from database...</p>
+            <p className="text-neutral-500 text-sm">
+              Loading complete collection from database...
+            </p>
           </div>
         ) : (
           <CollectionGrid

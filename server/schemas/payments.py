@@ -1,6 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel
 
+
 class Payment(BaseModel):
     product: Optional[int] = None
     product_name: Optional[str] = "DROPP Order"

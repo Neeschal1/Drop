@@ -45,12 +45,12 @@ const Signup = () => {
         formData.name,
         formData.email,
         formData.username,
-        formData.password
+        formData.password,
       );
 
       showToast(
         `Account created! Welcome to DROPP, ${formData.name}!`,
-        "success"
+        "success",
       );
 
       navigate(redirectUrl);
@@ -214,7 +214,11 @@ const Signup = () => {
           <p className="font-poppins font-light text-sm text-white/60 text-center">
             Already have an account?{" "}
             <Link
-              to={redirectUrl !== "/" ? `/login?redirect=${encodeURIComponent(redirectUrl)}` : "/login"}
+              to={
+                redirectUrl !== "/"
+                  ? `/login?redirect=${encodeURIComponent(redirectUrl)}`
+                  : "/login"
+              }
               className="text-white underline underline-offset-2"
             >
               Log in

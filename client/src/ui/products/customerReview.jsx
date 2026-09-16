@@ -36,12 +36,19 @@ const CustomerReview = ({ productId = null }) => {
 
       {loading ? (
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-          {Array(3).fill(0).map((_, i) => (
-            <div key={i} className="shrink-0 w-72 sm:w-84 border border-black/10 p-5 bg-neutral-50 animate-pulse h-40" />
-          ))}
+          {Array(3)
+            .fill(0)
+            .map((_, i) => (
+              <div
+                key={i}
+                className="shrink-0 w-72 sm:w-84 border border-black/10 p-5 bg-neutral-50 animate-pulse h-40"
+              />
+            ))}
         </div>
       ) : reviews.length === 0 ? (
-        <p className="text-xs text-neutral-500 italic">No reviews yet. Be the first to review!</p>
+        <p className="text-xs text-neutral-500 italic">
+          No reviews yet. Be the first to review!
+        </p>
       ) : (
         <div className="flex flex-row gap-4 overflow-x-auto pb-4 scrollbar-hide">
           {reviews.map((review) => (
@@ -70,7 +77,10 @@ const CustomerReview = ({ productId = null }) => {
               </div>
 
               <div className="pt-4 mt-4 border-t border-black/5 text-[11px] text-neutral-400">
-                Purchased: <strong className="text-neutral-700 font-medium">{review.productName}</strong>
+                Purchased:{" "}
+                <strong className="text-neutral-700 font-medium">
+                  {review.productName}
+                </strong>
               </div>
             </div>
           ))}

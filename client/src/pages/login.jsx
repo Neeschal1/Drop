@@ -131,7 +131,11 @@ const Login = () => {
           <p className="font-poppins font-light text-sm text-white/60 text-center">
             New to Dropp?{" "}
             <Link
-              to={redirectUrl !== "/" ? `/signup?redirect=${encodeURIComponent(redirectUrl)}` : "/signup"}
+              to={
+                redirectUrl !== "/"
+                  ? `/signup?redirect=${encodeURIComponent(redirectUrl)}`
+                  : "/signup"
+              }
               className="text-white underline underline-offset-2"
             >
               Signup

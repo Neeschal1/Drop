@@ -12,7 +12,8 @@ const SuccessPayment = () => {
         Payment Received :)
       </h1>
       <p className="font-poppins font-light text-white/60 max-w-md">
-        Your payment was processed successfully. A confirmation receipt has been dispatched to your email address.
+        Your payment was processed successfully. A confirmation receipt has been
+        dispatched to your email address.
       </p>
       <button
         onClick={() => navigate("/")}

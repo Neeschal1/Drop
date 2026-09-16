@@ -1,10 +1,18 @@
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import api from "../services/api";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(() => localStorage.getItem("dropp_access_token") || null);
+  const [token, setToken] = useState(
+    () => localStorage.getItem("dropp_access_token") || null,
+  );
   const [user, setUser] = useState(() => {
     try {
       const stored = localStorage.getItem("dropp_user");

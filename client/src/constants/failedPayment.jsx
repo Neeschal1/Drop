@@ -12,7 +12,8 @@ const FailedPayment = () => {
         Payment Incomplete :(
       </h1>
       <p className="font-poppins font-light text-white/60 max-w-md">
-        Your payment could not be processed or was cancelled. No charges were made to your account.
+        Your payment could not be processed or was cancelled. No charges were
+        made to your account.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 mt-10">
         <button
