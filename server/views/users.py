@@ -1,6 +1,6 @@
 from utils.hashPassword import hash_password, comparePassword
-from utils.auth import create_access_token
-from fastapi import status, APIRouter
+from utils.auth import create_access_token, get_current_user
+from fastapi import status, APIRouter, Depends
 from fastapi.responses import JSONResponse
 from database.settings import Base
 from models.setup import User
@@ -9,7 +9,7 @@ from database.dependencies import db_dependencies
 
 usersrouter = APIRouter(prefix="/users", tags=["User Authentication"])
 
-# Create a new user
+# Create a new user (Signup)
 @usersrouter.post('/post/', status_code=status.HTTP_201_CREATED)
 async def create_user(user: UserSignup, db: db_dependencies):
     try:
@@ -46,23 +46,31 @@ async def create_user(user: UserSignup, db: db_dependencies):
         db.refresh(db_user)
         
         access_token = create_access_token({
-            "sub": db_user.id
+            "sub": str(db_user.id)
         })
         
+        user_payload = {
+            "id": db_user.id,
+            "fullName": db_user.fullName,
+            "email": db_user.email,
+            "username": db_user.username
+        }
+
         return {
             "message": "User added successfully :)",
-            "data": {
-                "fullname": db_user.fullName,
-                "email": db_user.email,
-                "username": db_user.username
-            },
+            "data": user_payload,
+            "user": user_payload,
+            "access_token": access_token,
             "tokens": {
                 "accessToken": access_token
             }
         }
     except Exception as e:
         db.rollback()
-        return {"message": "Exception occured!", "detail": str(e)}
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={"message": "Exception occurred!", "detail": str(e)}
+        )
     
 
 # Log in an existing account from the database
@@ -79,9 +87,9 @@ async def login(user: UserLogin, db: db_dependencies):
                 }
             )
         
-        entered_password = user.password    # password entered by user
-        db_password = db_user.password      # hashed password stored in database
-        match_password = comparePassword(entered_password, db_password)     # compare both passwords
+        entered_password = user.password
+        db_password = db_user.password
+        match_password = comparePassword(entered_password, db_password)
         
         if not match_password:
             return JSONResponse(
@@ -91,76 +99,163 @@ async def login(user: UserLogin, db: db_dependencies):
                 }
             )
          
-        access_token = create_access_token({"sub": db_user.id})   
+        access_token = create_access_token({"sub": str(db_user.id)})   
+        user_payload = {
+            "id": db_user.id,
+            "fullName": db_user.fullName,
+            "email": db_user.email,
+            "username": db_user.username
+        }
         return {
             "message": "Login Successful :)",
-            "access_token": access_token
+            "access_token": access_token,
+            "user": user_payload
         }
         
     except Exception as e:
         db.rollback()
-        return {"message": "Exception occured!", "detail": str(e)}
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={"message": "Exception occurred!", "detail": str(e)}
+        )
 
 
-# List all the users detail
+# Get profile of currently logged-in user
+@usersrouter.get('/me/', status_code=status.HTTP_200_OK)
+async def get_my_profile(
+    db: db_dependencies,
+    current_user: str = Depends(get_current_user)
+):
+    try:
+        user_id = int(current_user)
+        db_user = db.query(User).filter(User.id == user_id).first()
+        if not db_user:
+            return JSONResponse(
+                status_code=status.HTTP_404_NOT_FOUND,
+                content={"message": "User profile not found"}
+            )
+        return {
+            "message": "Profile retrieved successfully",
+            "user": {
+                "id": db_user.id,
+                "fullName": db_user.fullName,
+                "email": db_user.email,
+                "username": db_user.username
+            }
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={"message": "Failed to retrieve profile", "detail": str(e)}
+        )
+
+
+# List all the users detail (Protected)
 @usersrouter.get('/get/', status_code=status.HTTP_200_OK)
-async def list_user(db: db_dependencies):
+async def list_user(db: db_dependencies, current_user: str = Depends(get_current_user)):
     try:
         db_user = db.query(User).all()
-        if db_user is None:
-            return {"message": "No users available!"}
-        return {"message": "Users list successfully listed :)", "data": db_user}
+        return {
+            "message": "Users list successfully listed :)",
+            "data": [
+                {
+                    "id": u.id,
+                    "fullName": u.fullName,
+                    "email": u.email,
+                    "username": u.username
+                }
+                for u in db_user
+            ]
+        }
     except Exception as e:
         db.rollback()
-        return {"message": "Exception occured!", "detail": str(e)}
+        return {"message": "Exception occurred!", "detail": str(e)}
 
 
-# Fetch specific users detail
-@usersrouter.get('/fetch/{userid}', status_code=status.HTTP_202_ACCEPTED)
-async def detch_user(userid: int, db: db_dependencies):
+# Fetch specific user detail
+@usersrouter.get('/fetch/{userid}', status_code=status.HTTP_200_OK)
+async def fetch_user(userid: int, db: db_dependencies):
     try:
         db_user = db.query(User).filter(User.id == userid).first()
         if db_user is None:
-            return {"message": "User not found!"}
-        return {"message": "Users fetched successfully :)", "data": db_user}
+            return JSONResponse(
+                status_code=status.HTTP_404_NOT_FOUND,
+                content={"message": "User not found!"}
+            )
+        return {
+            "message": "User fetched successfully :)",
+            "data": {
+                "id": db_user.id,
+                "fullName": db_user.fullName,
+                "email": db_user.email,
+                "username": db_user.username
+            }
+        }
     except Exception as e:
         db.rollback()
-        return {"message": "Exception occured!", "detail": str(e)}
+        return {"message": "Exception occurred!", "detail": str(e)}
 
 
-# Update users data based on users id
-@usersrouter.put('/update/{usersid}', status_code=status.HTTP_201_CREATED)
-async def update_user(userid: int, db: db_dependencies, user:UserSignup):
+# Update user data based on user id (Protected)
+@usersrouter.put('/update/{userid}', status_code=status.HTTP_200_OK)
+async def update_user(
+    userid: int,
+    user: UserSignup,
+    db: db_dependencies,
+    current_user: str = Depends(get_current_user)
+):
     try:
+        if int(current_user) != userid:
+            return JSONResponse(
+                status_code=status.HTTP_403_FORBIDDEN,
+                content={"message": "You are not authorized to edit this profile"}
+            )
+
         db_user = db.query(User).filter(User.id == userid).first()
         if db_user is None:
-            return {"message": "User not found!"}
+            return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content={"message": "User not found!"})
         
-        # fields updating
         db_user.fullName = user.fullName
         db_user.email = user.email
         db_user.username = user.username
-        db_user.password = user.password
+        if user.password:
+            db_user.password = hash_password(user.password)
         
-        # saving changes
         db.commit()
         db.refresh(db_user)
-        return {"message": "User's data updated successfully :)", "data": db_user}
+        return {
+            "message": "User data updated successfully :)",
+            "data": {
+                "id": db_user.id,
+                "fullName": db_user.fullName,
+                "email": db_user.email,
+                "username": db_user.username
+            }
+        }
     except Exception as e:
         db.rollback()
-        return {"message": "Exception occured!", "detail": str(e)}
+        return {"message": "Exception occurred!", "detail": str(e)}
     
 
-# Delete users data based on users id
+# Delete user data (Protected)
 @usersrouter.delete('/delete/{userid}', status_code=status.HTTP_200_OK)
-async def delete_user(userid: int, db: db_dependencies):
+async def delete_user(
+    userid: int,
+    db: db_dependencies,
+    current_user: str = Depends(get_current_user)
+):
     try:
+        if int(current_user) != userid:
+            return JSONResponse(
+                status_code=status.HTTP_403_FORBIDDEN,
+                content={"message": "You are not authorized to delete this profile"}
+            )
         db_user = db.query(User).filter(User.id == userid).first()
         if db_user is None:
-            return {"message": "User not found!"}
+            return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content={"message": "User not found!"})
         db.delete(db_user)
         db.commit()
-        return {"message": "Users data successfully deleted :)"}
+        return {"message": "User successfully deleted :)"}
     except Exception as e:
         db.rollback()
-        return {"message": "Exception occured!", "detail": str(e)}
+        return {"message": "Exception occurred!", "detail": str(e)}

@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, JSON, ForeignKey, TIMESTAMP, Float
+from sqlalchemy import Boolean, Column, Integer, String, JSON, ForeignKey, TIMESTAMP, Float, Text
 from database.settings import Base
 from sqlalchemy.sql import func
 from pydantic import BaseModel
@@ -17,13 +17,13 @@ class Product(Base):
     __tablename__ = "products"
     
     id = Column(Integer, primary_key=True, index=True)
-    itemname = Column(String(100))
-    description = Column(String(100))
+    itemname = Column(String(150))
+    description = Column(Text)
     availability = Column(String(100))
     gender = Column(String(100))
     images = Column(JSON)
     price = Column(String(100))
-    ratings = Column(Integer)
+    ratings = Column(Float)
     available_sizes = Column(JSON)
     details_and_care = Column(JSON)
     shipping_and_return = Column(JSON)
@@ -44,7 +44,8 @@ class Payments(Base):
     __tablename__ = "payments"
     
     id = Column(Integer, primary_key=True, index=True)
-    product = Column(Integer, ForeignKey("products.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    product = Column(Integer, ForeignKey("products.id"), nullable=True)
     cost = Column(Float)
     quantity = Column(Integer)
     fullname = Column(String(50))
@@ -52,5 +53,4 @@ class Payments(Base):
     shipping_address = Column(String(100))
     city = Column(String(50))
     postal_code = Column(Integer)
-    payment_method = Column(String(20))
-    
+    payment_method = Column(String(50))

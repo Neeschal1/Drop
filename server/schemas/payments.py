@@ -1,19 +1,14 @@
+from typing import Optional
 from pydantic import BaseModel
-from enum import Enum
 
-class PaymentMethod(str, Enum):
-    CREDIT_CARD = "Credit Card"
-    ESEWA = "eSewa"
-    KHALTI = "Khalti"
-    
 class Payment(BaseModel):
-    product: int
+    product: Optional[int] = None
+    product_name: Optional[str] = "DROPP Order"
     cost: float
-    quantity: int
+    quantity: int = 1
     fullname: str
     email_address: str
     shipping_address: str
     city: str
     postal_code: int
-    payment_method: PaymentMethod
-    
+    payment_method: str = "Credit Card"
