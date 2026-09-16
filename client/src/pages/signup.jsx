@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { useToast } from "../hooks/toast";
-import handleSignup from "../services/signupService";
+import useAuth from "../hooks/auth";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -14,12 +14,19 @@ const Signup = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [passwordError, setPasswordError] = useState("");
+  const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useToast();
+  const { signup } = useAuth();
+
+  const searchParams = new URLSearchParams(location.search);
+  const redirectUrl = searchParams.get("redirect") || "/";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (passwordError) setPasswordError("");
+    if (serverError) setServerError("");
   };
 
   const handleSubmit = async (e) => {
@@ -31,26 +38,29 @@ const Signup = () => {
     }
 
     setIsLoading(true);
+    setServerError("");
 
     try {
-      const response = await handleSignup(
+      await signup(
         formData.name,
         formData.email,
         formData.username,
-        formData.password,
+        formData.password
       );
 
       showToast(
         `Account created! Welcome to DROPP, ${formData.name}!`,
-        "success",
+        "success"
       );
 
-      navigate("/");
+      navigate(redirectUrl);
     } catch (err) {
-      showToast(
-        err.response?.data?.detail || "Unable to create account",
-        "error",
-      );
+      const message =
+        err.response?.data?.message ||
+        err.response?.data?.detail ||
+        "Unable to create account. Please try again.";
+      setServerError(message);
+      showToast(message, "error");
     } finally {
       setIsLoading(false);
     }
@@ -100,7 +110,7 @@ const Signup = () => {
                 value={formData.name}
                 onChange={handleChange}
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
-                placeholder="Nischal Pokharel"
+                placeholder="Jane Doe"
               />
             </div>
 
@@ -119,7 +129,7 @@ const Signup = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
-                placeholder="neeschal@example.com"
+                placeholder="jane@example.com"
               />
             </div>
 
@@ -154,11 +164,11 @@ const Signup = () => {
                 name="password"
                 type="password"
                 required
-                minLength={8}
+                minLength={6}
                 value={formData.password}
                 onChange={handleChange}
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
-                placeholder="At least 8 characters"
+                placeholder="At least 6 characters"
               />
             </div>
 
@@ -174,7 +184,7 @@ const Signup = () => {
                 name="confirmPassword"
                 type="password"
                 required
-                minLength={8}
+                minLength={6}
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
@@ -183,6 +193,11 @@ const Signup = () => {
               {passwordError && (
                 <span className="text-xs text-red-400 font-poppins mt-1">
                   {passwordError}
+                </span>
+              )}
+              {serverError && (
+                <span className="text-xs text-red-400 font-poppins mt-1">
+                  {serverError}
                 </span>
               )}
             </div>
@@ -199,7 +214,7 @@ const Signup = () => {
           <p className="font-poppins font-light text-sm text-white/60 text-center">
             Already have an account?{" "}
             <Link
-              to="/login"
+              to={redirectUrl !== "/" ? `/login?redirect=${encodeURIComponent(redirectUrl)}` : "/login"}
               className="text-white underline underline-offset-2"
             >
               Log in

@@ -2,29 +2,36 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../constants/navbar";
 import Footer from "../constants/footer";
 import { CollectionGrid } from "../ui/collection/collectionLayout";
-import { Data } from "../utils/clothesProductsData";
+import { getProducts } from "../services/productService";
 
 const Sales = () => {
-  const saleProducts = [
-    Data[0].women[0],
-    Data[0].men[0],
-    Data[0].women[2],
-    Data[0].men[3],
-    Data[0].women[4],
-    Data[0].men[5],
-    Data[0].women[6],
-    Data[0].men[7],
-    Data[0].women[9],
-    Data[0].men[9],
-    Data[0].women[11],
-    Data[0].men[11],
-  ];
+  const [saleProducts, setSaleProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [timeLeft, setTimeLeft] = useState({
-    hours: 14,
-    minutes: 32,
-    seconds: 45,
-  });
+  // Simulated countdown timer for sale urgency
+  const [timeLeft, setTimeLeft] = useState({ hours: 14, minutes: 32, seconds: 45 });
+
+  useEffect(() => {
+    let isMounted = true;
+    const loadSaleItems = async () => {
+      try {
+        const all = await getProducts();
+        if (isMounted) {
+          // Curate items for the seasonal sale
+          const selected = all.filter((_, idx) => idx % 2 === 0).slice(0, 12);
+          setSaleProducts(selected);
+        }
+      } catch (err) {
+        console.error("Failed to load sale products:", err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+    loadSaleItems();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -73,13 +80,20 @@ const Sales = () => {
           </div>
         </div>
 
-        <CollectionGrid
-          products={saleProducts}
-          title="Seasonal Sale Drops"
-          subtitle="Limited-run archival staples and seasonal favorites at exclusive marked-down prices."
-          isSalePage={true}
-          availableCategories={["All", "Tops", "Bottoms", "Outerwear"]}
-        />
+        {loading ? (
+          <div className="w-full max-w-7xl mx-auto px-4 py-24 text-center">
+            <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-neutral-500 text-sm">Loading sale archive from database...</p>
+          </div>
+        ) : (
+          <CollectionGrid
+            products={saleProducts}
+            title="Seasonal Sale Drops"
+            subtitle="Limited-run archival staples and seasonal favorites at exclusive marked-down prices."
+            isSalePage={true}
+            availableCategories={["All", "Tops", "Bottoms", "Outerwear"]}
+          />
+        )}
       </main>
 
       <Footer />

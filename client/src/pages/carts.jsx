@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../constants/navbar";
 import Footer from "../constants/footer";
 import { CartItems, OrderSummary } from "../ui/cart/cartLayout";
 import useCart from "../hooks/carts";
 import { useToast } from "../hooks/toast";
-import { Data } from "../utils/clothesProductsData";
+import useAuth from "../hooks/auth";
+import api from "../services/api";
 import ProductCard from "../ui/collection/productCard";
+import { getProducts } from "../services/productService";
 
 const Carts = () => {
   const { cartItems, clearCart, getCartTotal } = useCart();
   const { showToast } = useToast();
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [orderId, setOrderId] = useState("");
+  const [checkoutTotal, setCheckoutTotal] = useState(0);
+  const [trendingProducts, setTrendingProducts] = useState([]);
 
   const [checkoutData, setCheckoutData] = useState({
     fullName: "",
@@ -24,29 +29,105 @@ const Carts = () => {
     address: "",
     city: "",
     postalCode: "",
-    paymentMethod: "card",
+    paymentMethod: "Credit Card",
   });
+
+  // Pre-fill user data when user is logged in
+  useEffect(() => {
+    if (user) {
+      setCheckoutData((prev) => ({
+        ...prev,
+        fullName: prev.fullName || user.fullName || "",
+        email: prev.email || user.email || "",
+      }));
+    }
+  }, [user]);
+
+  // Load trending recommendations from backend API for empty cart
+  useEffect(() => {
+    const loadTrending = async () => {
+      try {
+        const prods = await getProducts();
+        if (prods && prods.length > 0) {
+          setTrendingProducts(prods.slice(0, 4));
+        }
+      } catch (err) {
+        console.error("Could not load recommendations:", err);
+      }
+    };
+    loadTrending();
+  }, []);
 
   const handleInputChange = (e) => {
     setCheckoutData({ ...checkoutData, [e.target.name]: e.target.value });
   };
 
-  const handleCheckoutSubmit = (e) => {
-    e.preventDefault();
-    setIsProcessing(true);
-
-    setTimeout(() => {
-      const randomOrderId =
-        "ORD-" + Math.floor(100000 + Math.random() * 900000);
-      setOrderId(randomOrderId);
-      setIsProcessing(false);
-      setIsOrderPlaced(true);
-      clearCart();
-      showToast("Order placed successfully!", "success");
-    }, 1500);
+  const handleOpenCheckout = (total) => {
+    if (!isAuthenticated) {
+      showToast("Please log in with your account to proceed to payment.", "error");
+      navigate("/login?redirect=/carts");
+      return;
+    }
+    setCheckoutTotal(total || getCartTotal().toFixed(2));
+    setIsCheckoutOpen(true);
   };
 
-  const recommendedEmpty = Data[0].women.slice(0, 4);
+  const handleCheckoutSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!isAuthenticated) {
+      showToast("Authentication required to complete payment.", "error");
+      navigate("/login?redirect=/carts");
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      const primaryItem = cartItems[0];
+      const productCost = parseFloat(checkoutTotal) || getCartTotal();
+
+      const paymentPayload = {
+        product: primaryItem?.id || primaryItem?.item || null,
+        product_name: cartItems.map((i) => i.itemName || i.itemname).join(", ").slice(0, 100) || "DROPP Fashion Order",
+        cost: productCost,
+        quantity: cartItems.reduce((acc, item) => acc + item.quantity, 0),
+        fullname: checkoutData.fullName,
+        email_address: checkoutData.email,
+        shipping_address: checkoutData.address,
+        city: checkoutData.city,
+        postal_code: parseInt(checkoutData.postalCode) || 1000,
+        payment_method: checkoutData.paymentMethod || "Credit Card",
+      };
+
+      const response = await api.post("/payment/post/", paymentPayload);
+
+      // Check if Stripe Checkout session URL was provided
+      if (response.data && response.data.url && response.data.url.includes("checkout.stripe.com")) {
+        showToast("Redirecting to secure Stripe Checkout...", "info");
+        window.location.href = response.data.url;
+        return;
+      }
+
+      // Successful order recording
+      const returnedOrderId = response.data.payment_id
+        ? `ORD-${response.data.payment_id + 100000}`
+        : `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
+
+      setOrderId(returnedOrderId);
+      setIsOrderPlaced(true);
+      clearCart();
+      showToast("Payment processed and order placed successfully!", "success");
+    } catch (err) {
+      const errorDetail =
+        err.response?.data?.detail ||
+        err.response?.data?.message ||
+        "Payment processing failed. Please try again.";
+      showToast(errorDetail, "error");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen w-full bg-white font-poppins">
@@ -91,16 +172,18 @@ const Carts = () => {
               </button>
             </div>
 
-            <div className="w-full mt-20 text-left border-t border-black/10 pt-12">
-              <h2 className="font-poppins font-medium text-xl text-neutral-900 mb-6">
-                Trending Right Now
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-                {recommendedEmpty.map((product) => (
-                  <ProductCard key={product.item} product={product} />
-                ))}
+            {trendingProducts.length > 0 && (
+              <div className="w-full mt-20 text-left border-t border-black/10 pt-12">
+                <h2 className="font-poppins font-medium text-xl text-neutral-900 mb-6">
+                  Trending Right Now
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+                  {trendingProducts.map((product) => (
+                    <ProductCard key={product.id || product.item} product={product} />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         ) : (
           <div>
@@ -119,14 +202,14 @@ const Carts = () => {
               </div>
 
               <div className="lg:col-span-4 sticky top-28">
-                <OrderSummary onCheckout={() => setIsCheckoutOpen(true)} />
+                <OrderSummary onCheckout={handleOpenCheckout} />
               </div>
             </div>
           </div>
         )}
       </main>
 
-      {/* Checkout Modal */}
+      {/* Authenticated Checkout Modal */}
       {isCheckoutOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-lg p-6 sm:p-8 rounded-sm shadow-2xl relative max-h-[90vh] overflow-y-auto">
@@ -141,13 +224,18 @@ const Carts = () => {
                 </button>
 
                 <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs text-green-700 bg-green-50 px-2 py-0.5 rounded-xs font-medium">
+                      ✓ Authenticated Checkout
+                    </span>
+                  </div>
                   <h2 className="font-poppins font-medium text-xl sm:text-2xl text-neutral-900">
                     Express Checkout
                   </h2>
                   <p className="text-xs text-neutral-500 mt-1">
                     Total to pay:{" "}
                     <strong className="text-black">
-                      €{getCartTotal().toFixed(2)}
+                      €{checkoutTotal || getCartTotal().toFixed(2)}
                     </strong>
                   </p>
                 </div>
@@ -237,7 +325,7 @@ const Carts = () => {
                       Payment Method
                     </label>
                     <div className="grid grid-cols-3 gap-2">
-                      {["card", "applepay", "cod"].map((method) => (
+                      {["Credit Card", "eSewa", "Khalti"].map((method) => (
                         <button
                           type="button"
                           key={method}
@@ -253,9 +341,7 @@ const Carts = () => {
                               : "border-black/20 text-neutral-700 hover:border-black"
                           }`}
                         >
-                          {method === "card" && "Credit Card"}
-                          {method === "applepay" && "Apple Pay"}
-                          {method === "cod" && "Cash on Del."}
+                          {method}
                         </button>
                       ))}
                     </div>
@@ -267,9 +353,9 @@ const Carts = () => {
                     className="mt-4 bg-black text-white py-3.5 text-sm font-poppins font-medium hover:bg-neutral-800 transition-colors cursor-pointer flex items-center justify-center gap-2"
                   >
                     {isProcessing ? (
-                      <span>Processing Payment...</span>
+                      <span>Processing Authenticated Payment...</span>
                     ) : (
-                      <span>Confirm & Pay</span>
+                      <span>Confirm & Pay (€{checkoutTotal || getCartTotal().toFixed(2)})</span>
                     )}
                   </button>
                 </form>
@@ -287,11 +373,11 @@ const Carts = () => {
                   <strong className="text-black">{orderId}</strong>
                 </p>
                 <p className="text-sm text-neutral-600 max-w-sm mb-6 font-light">
-                  We've sent a confirmation email to{" "}
+                  We've recorded your purchase and sent a confirmation email to{" "}
                   <strong className="font-medium text-black">
-                    {checkoutData.email || "your inbox"}
+                    {checkoutData.email || user?.email || "your inbox"}
                   </strong>
-                  . Your items will be dispatched shortly.
+                  .
                 </p>
                 <button
                   onClick={() => {

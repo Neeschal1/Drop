@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useCart from "../../hooks/carts";
 import { useToast } from "../../hooks/toast";
+import useAuth from "../../hooks/auth";
 
 const OrderSummary = ({ onCheckout }) => {
   const { getCartTotal, cartItems } = useCart();
   const { showToast } = useToast();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
   const [promoCode, setPromoCode] = useState("");
   const [appliedDiscount, setAppliedDiscount] = useState(0);
   const [promoError, setPromoError] = useState("");
@@ -40,14 +45,26 @@ const OrderSummary = ({ onCheckout }) => {
     }
   };
 
+  const handleCheckoutClick = () => {
+    if (cartItems.length === 0) return;
+
+    if (!isAuthenticated) {
+      showToast("Please log in with your account to proceed to payment.", "error");
+      navigate("/login?redirect=/carts");
+      return;
+    }
+
+    onCheckout(total);
+  };
+
   return (
-    <div className="w-full bg-neutral-50 p-6 sm:p-8 border border-black/10 flex flex-col gap-6">
-      <h2 className="font-poppins font-medium text-lg sm:text-xl text-neutral-900 border-b border-black/10 pb-4">
+    <div className="w-full bg-neutral-50 p-6 sm:p-8 border border-black/10 flex flex-col gap-6 font-poppins">
+      <h2 className="font-medium text-lg sm:text-xl text-neutral-900 border-b border-black/10 pb-4">
         Order Summary
       </h2>
 
       {/* Breakdown */}
-      <div className="flex flex-col gap-3 font-poppins text-sm">
+      <div className="flex flex-col gap-3 text-sm">
         <div className="flex items-center justify-between text-neutral-600">
           <span>Subtotal</span>
           <span className="text-neutral-900 font-medium">€{subtotal.toFixed(2)}</span>
@@ -109,11 +126,11 @@ const OrderSummary = ({ onCheckout }) => {
 
       {/* Checkout Button */}
       <button
-        onClick={onCheckout}
+        onClick={handleCheckoutClick}
         disabled={cartItems.length === 0}
         className="w-full bg-black text-white py-3.5 px-6 font-poppins font-medium text-sm tracking-wide transition-all duration-300 hover:bg-neutral-800 hover:-translate-y-0.5 active:translate-y-0 disabled:bg-neutral-300 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2 shadow-sm"
       >
-        <span>Proceed to Checkout</span>
+        <span>{isAuthenticated ? "Proceed to Checkout" : "Log In to Checkout"}</span>
         <span>→</span>
       </button>
 
@@ -125,7 +142,7 @@ const OrderSummary = ({ onCheckout }) => {
         </div>
         <div className="flex items-center gap-2">
           <span>🔒</span>
-          <span>Encrypted 256-bit SSL secure checkout</span>
+          <span>Secure checkout with user authentication</span>
         </div>
         <div className="flex items-center gap-2">
           <span>⚡</span>
@@ -137,4 +154,3 @@ const OrderSummary = ({ onCheckout }) => {
 };
 
 export default OrderSummary;
-

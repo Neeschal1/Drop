@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "./api";
 
 const handleSignup = async (name, email, username, password) => {
   const data = {
@@ -9,18 +9,10 @@ const handleSignup = async (name, email, username, password) => {
   };
 
   try {
-    const response = await axios.post(
-      "http://localhost:8000/users/post/",
-      data,
-    );
-
-    console.log("Data:", response.data);
-    console.log("Status:", response.status);
-
-    return response;
+    const response = await api.post("/users/post/", data);
+    return response.data;
   } catch (err) {
-    console.log("Signup error:", err);
-
+    console.error("Signup error:", err);
     throw err;
   }
 };

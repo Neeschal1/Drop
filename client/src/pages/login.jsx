@@ -1,26 +1,47 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { useToast } from "../hooks/toast";
+import useAuth from "../hooks/auth";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useToast();
+  const { login } = useAuth();
+
+  // Check if redirect query param exists
+  const searchParams = new URLSearchParams(location.search);
+  const redirectUrl = searchParams.get("redirect") || "/";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errorMsg) setErrorMsg("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
+    setErrorMsg("");
+
+    try {
+      const data = await login(formData.email, formData.password);
+      const name = data.user?.fullName || formData.email.split("@")[0];
+      showToast(`Welcome back, ${name}!`, "success");
+      navigate(redirectUrl);
+    } catch (err) {
+      const message =
+        err.response?.data?.message ||
+        err.response?.data?.detail ||
+        "Login failed. Please check your credentials.";
+      setErrorMsg(message);
+      showToast(message, "error");
+    } finally {
       setIsLoading(false);
-      showToast(`Welcome back, ${formData.email.split("@")[0]}!`, "success");
-      navigate("/");
-    }, 600);
+    }
   };
 
   return (
@@ -47,7 +68,9 @@ const Login = () => {
               Log In
             </h1>
             <p className="font-poppins font-light text-sm text-white/60">
-              Login with your existing account in order to continue!
+              {redirectUrl !== "/"
+                ? "Please log in to continue with your checkout"
+                : "Login with your existing account in order to continue!"}
             </p>
           </div>
 
@@ -83,13 +106,18 @@ const Login = () => {
                 name="password"
                 type="password"
                 required
-                minLength={8}
                 value={formData.password}
                 onChange={handleChange}
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
-                placeholder="At least 8 characters"
+                placeholder="Enter your password"
               />
             </div>
+
+            {errorMsg && (
+              <p className="text-xs text-red-400 font-poppins leading-relaxed">
+                {errorMsg}
+              </p>
+            )}
 
             <button
               type="submit"
@@ -103,7 +131,7 @@ const Login = () => {
           <p className="font-poppins font-light text-sm text-white/60 text-center">
             New to Dropp?{" "}
             <Link
-              to="/signup"
+              to={redirectUrl !== "/" ? `/signup?redirect=${encodeURIComponent(redirectUrl)}` : "/signup"}
               className="text-white underline underline-offset-2"
             >
               Signup

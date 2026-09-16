@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { AuthButton, CartButton } from "../components/componentsLayout";
+import useAuth from "../hooks/auth";
+import { useToast } from "../hooks/toast";
 
 const NavElements = [
   { id: 1, name: "WOMEN", navigateTo: "/women-collection" },
@@ -14,8 +16,13 @@ const NavElements = [
 const Navbar = ({ bgstate }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef(null);
+
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, isAuthenticated, logout } = useAuth();
+  const { showToast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +44,24 @@ const Navbar = ({ bgstate }) => {
       document.body.style.overflow = "";
     };
   }, [isMobileMenuOpen]);
+
+  // Close profile dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    setIsProfileOpen(false);
+    showToast("You have been logged out.", "info");
+    navigate("/");
+  };
 
   return (
     <div
@@ -107,7 +132,41 @@ const Navbar = ({ bgstate }) => {
 
         {/* Action Buttons */}
         <div className="hidden lg:flex items-center gap-4">
-          <AuthButton navigateTo="/signup" buttonName="ACCOUNT" />
+          {isAuthenticated ? (
+            <div className="relative" ref={profileRef}>
+              <button
+                onClick={() => setIsProfileOpen((prev) => !prev)}
+                className="flex border font-poppins border-white/60 bg-white/10 px-3 sm:px-large py-2 sm:py-small text-xs sm:text-sm text-white whitespace-nowrap cursor-pointer transition-all duration-300 ease-out hover:bg-white hover:text-black items-center gap-2"
+              >
+                <span>👤</span>
+                <span className="max-w-[100px] truncate">{user?.fullName?.split(" ")[0] || "ACCOUNT"}</span>
+                <span className="text-[10px]">▼</span>
+              </button>
+
+              {/* Profile Dropdown */}
+              {isProfileOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-neutral-950 border border-white/15 text-white p-4 shadow-xl z-50 flex flex-col gap-3 font-poppins">
+                  <div className="border-b border-white/10 pb-2">
+                    <p className="text-xs text-neutral-400">Signed in as</p>
+                    <p className="text-sm font-semibold truncate">{user?.fullName}</p>
+                    <p className="text-xs text-neutral-400 truncate">{user?.email}</p>
+                    {user?.username && (
+                      <p className="text-[11px] text-neutral-500">@{user?.username}</p>
+                    )}
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full bg-white text-black text-xs py-2 font-medium hover:bg-neutral-200 transition-colors cursor-pointer text-center"
+                  >
+                    Log Out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <AuthButton navigateTo="/login" buttonName="ACCOUNT" />
+          )}
+
           <AuthButton navigateTo="/favourites" buttonName="FAVS" />
           <CartButton navigateTo="/carts" />
         </div>
@@ -137,7 +196,25 @@ const Navbar = ({ bgstate }) => {
             </Link>
           ))}
           <div className="flex flex-col items-center gap-y-3 mt-6 w-full max-w-xs">
-            <AuthButton navigateTo="/signup" buttonName="ACCOUNT" />
+            {isAuthenticated ? (
+              <div className="w-full flex flex-col gap-2 text-center">
+                <div className="text-white text-xs py-1 border border-white/20">
+                  <span className="text-neutral-400">Hi, </span>
+                  <strong>{user?.fullName}</strong>
+                </div>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full bg-white text-black text-xs py-2 font-medium hover:bg-neutral-200 transition-colors cursor-pointer"
+                >
+                  Log Out
+                </button>
+              </div>
+            ) : (
+              <AuthButton navigateTo="/login" buttonName="ACCOUNT" />
+            )}
             <AuthButton navigateTo="/favourites" buttonName="FAVS" />
             <CartButton navigateTo="/carts" />
           </div>
