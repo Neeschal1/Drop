@@ -50,7 +50,9 @@ const ProductCard = ({ product, isSaleItem = false, discountPercent = 20 }) => {
           src={product.image1}
           alt={product.itemName}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
-            isHovered && product.image2 ? "opacity-0 scale-105" : "opacity-100 scale-100"
+            isHovered && product.image2
+              ? "opacity-0 scale-105"
+              : "opacity-100 scale-100"
           }`}
         />
         {product.image2 && (
@@ -91,7 +93,9 @@ const ProductCard = ({ product, isSaleItem = false, discountPercent = 20 }) => {
               isHovered ? "translate-y-0" : "translate-y-full"
             }`}
           >
-            <span className="text-[10px] text-white/70 uppercase tracking-widest mr-1">Sizes:</span>
+            <span className="text-[10px] text-white/70 uppercase tracking-widest mr-1">
+              Sizes:
+            </span>
             {product.availableSizes.slice(0, 5).map((size) => (
               <span
                 key={size}
@@ -101,7 +105,9 @@ const ProductCard = ({ product, isSaleItem = false, discountPercent = 20 }) => {
               </span>
             ))}
             {product.availableSizes.length > 5 && (
-              <span className="text-[10px] text-white/70">+{product.availableSizes.length - 5}</span>
+              <span className="text-[10px] text-white/70">
+                +{product.availableSizes.length - 5}
+              </span>
             )}
           </div>
         )}
@@ -140,4 +146,3 @@ const ProductCard = ({ product, isSaleItem = false, discountPercent = 20 }) => {
 };
 
 export default ProductCard;
-

@@ -17,7 +17,9 @@ export const normalizeProduct = (p) => {
   } else if (!price) {
     price = "Rs. 0";
   } else if (!price.startsWith("Rs.") && !price.startsWith("NPR")) {
-    const cleanNumber = String(price).replace(/,/g, "").replace(/[^0-9.]/g, "");
+    const cleanNumber = String(price)
+      .replace(/,/g, "")
+      .replace(/[^0-9.]/g, "");
     price = `Rs. ${cleanNumber || 0}`;
   }
   const availableSizes = p.available_sizes ||

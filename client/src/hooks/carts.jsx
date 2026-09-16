@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 
 const CartContext = createContext(null);
 
@@ -21,7 +27,10 @@ export const CartProvider = ({ children }) => {
   const addToCart = useCallback((product, selectedSize, quantity = 1) => {
     setCartItems((prev) => {
       const existingIndex = prev.findIndex(
-        (item) => item.item === product.item && item.itemName === product.itemName && item.selectedSize === selectedSize
+        (item) =>
+          item.item === product.item &&
+          item.itemName === product.itemName &&
+          item.selectedSize === selectedSize,
       );
       if (existingIndex > -1) {
         const updated = [...prev];
@@ -54,7 +63,9 @@ export const CartProvider = ({ children }) => {
 
   const getCartTotal = useCallback(() => {
     return cartItems.reduce((total, item) => {
-      const rawPrice = String(item.price || "0").replace(/,/g, "").replace(/[^0-9.]/g, "");
+      const rawPrice = String(item.price || "0")
+        .replace(/,/g, "")
+        .replace(/[^0-9.]/g, "");
       const price = parseFloat(rawPrice) || 0;
       return total + price * item.quantity;
     }, 0);
