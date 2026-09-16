@@ -17,8 +17,8 @@ const OrderSummary = ({ onCheckout }) => {
 
   const subtotal = getCartTotal();
   const isFreeShipping =
-    subtotal >= 100 || promoSuccess.includes("Free shipping");
-  const shippingCost = subtotal > 0 && !isFreeShipping ? 5.99 : 0;
+    subtotal >= 5000 || promoSuccess.includes("Free shipping");
+  const shippingCost = subtotal > 0 && !isFreeShipping ? 150 : 0;
   const discountAmount = (subtotal * appliedDiscount) / 100;
   const total = Math.max(0, subtotal - discountAmount + shippingCost).toFixed(
     2,
@@ -74,7 +74,7 @@ const OrderSummary = ({ onCheckout }) => {
         <div className="flex items-center justify-between text-neutral-600">
           <span>Subtotal</span>
           <span className="text-neutral-900 font-medium">
-            €{subtotal.toFixed(2)}
+            Rs. {subtotal.toLocaleString()}
           </span>
         </div>
 
@@ -82,7 +82,7 @@ const OrderSummary = ({ onCheckout }) => {
           <div className="flex items-center gap-1.5">
             <span>Shipping</span>
             <span className="text-[11px] text-neutral-400">
-              {subtotal < 100 ? `(Free over €100)` : `(Standard)`}
+              {subtotal < 5000 ? `(Free over Rs. 5,000)` : `(Standard)`}
             </span>
           </div>
           <span className="text-neutral-900 font-medium">
@@ -91,7 +91,7 @@ const OrderSummary = ({ onCheckout }) => {
                 Free
               </span>
             ) : (
-              `€${shippingCost.toFixed(2)}`
+              `Rs. ${shippingCost}`
             )}
           </span>
         </div>
@@ -99,13 +99,13 @@ const OrderSummary = ({ onCheckout }) => {
         {appliedDiscount > 0 && (
           <div className="flex items-center justify-between text-green-600">
             <span>Discount ({appliedDiscount}%)</span>
-            <span>-€{discountAmount.toFixed(2)}</span>
+            <span>-Rs. {discountAmount.toFixed(2)}</span>
           </div>
         )}
 
         <div className="border-t border-black/10 pt-4 mt-1 flex items-center justify-between font-medium text-base sm:text-lg text-neutral-900">
           <span>Total</span>
-          <span>€{total}</span>
+          <span>Rs. {total}</span>
         </div>
       </div>
 

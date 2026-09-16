@@ -335,7 +335,7 @@ const ProductDetails = () => {
                     <>
                       <p>
                         • Complimentary standard shipping on all orders over
-                        €100.
+                        Rs. 5,000.
                       </p>
                       <p>• Hassle-free 30-day returns and exchanges.</p>
                       <p>• Estimated delivery: 2-4 business days.</p>

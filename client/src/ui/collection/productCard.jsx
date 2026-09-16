@@ -26,9 +26,14 @@ const ProductCard = ({ product, isSaleItem = false, discountPercent = 20 }) => {
   };
 
   // Calculate discounted price if sale
-  const numericPrice = parseFloat(product.price.replace("€", "")) || 0;
+  const numericPrice =
+    parseFloat(
+      String(product.price || "")
+        .replace(/,/g, "")
+        .replace(/[^0-9.]/g, ""),
+    ) || 0;
   const salePrice = isSaleItem
-    ? `€${Math.round(numericPrice * (1 - discountPercent / 100))}`
+    ? `Rs. ${Math.round(numericPrice * (1 - discountPercent / 100)).toLocaleString()}`
     : null;
 
   return (

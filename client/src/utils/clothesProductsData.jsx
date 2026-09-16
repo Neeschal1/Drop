@@ -10,7 +10,7 @@ export const Data = [
           "https://i.pinimg.com/736x/4f/bd/7b/4fbd7ba14b539887330811573b0af239.jpg",
         image2:
           "https://i.pinimg.com/736x/bc/79/d6/bc79d6b971d1f3c47e0f00db33f8a392.jpg",
-        price: "€65",
+        price: "Rs. 6,500",
         ratings: "4.8",
         availableSizes: ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"],
       },
@@ -23,7 +23,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1556821840-3a63f95609a7",
         image2:
           "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633",
-        price: "€75",
+        price: "Rs. 7,500",
         ratings: "4.7",
         availableSizes: ["XS", "S", "M", "L", "XL", "XXL"],
       },
@@ -36,7 +36,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1544022613-e87ca75a784a",
         image2:
           "https://images.unsplash.com/photo-1591047139829-d91aecb6caea",
-        price: "€110",
+        price: "Rs. 11,000",
         ratings: "4.9",
         availableSizes: ["XS", "S", "M", "L", "XL"],
       },
@@ -49,7 +49,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
         image2:
           "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c",
-        price: "€35",
+        price: "Rs. 3,500",
         ratings: "4.6",
         availableSizes: ["XXS", "XS", "S", "M", "L", "XL", "XXL"],
       },
@@ -62,7 +62,7 @@ export const Data = [
           "https://i.pinimg.com/736x/a6/0c/de/a60cde89d460f680ffa5ce2fb61dd8fc.jpg",
         image2:
           "https://i.pinimg.com/736x/a6/0c/de/a60cde89d460f680ffa5ce2fb61dd8fc.jpg",
-        price: "€85",
+        price: "Rs. 8,500",
         ratings: "4.7",
         availableSizes: ["XS", "S", "M", "L", "XL", "XXL"],
       },
@@ -75,7 +75,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3",
         image2:
           "https://images.unsplash.com/photo-1564859228273-274232fdb516",
-        price: "€29",
+        price: "Rs. 2,900",
         ratings: "4.5",
         availableSizes: ["XXS", "XS", "S", "M", "L", "XL"],
       },
@@ -88,7 +88,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
         image2:
           "https://images.unsplash.com/photo-1582418702059-97ebafb35d09",
-        price: "€89",
+        price: "Rs. 8,900",
         ratings: "4.8",
         availableSizes: ["24", "26", "28", "30", "32", "34"],
       },
@@ -101,7 +101,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1566174053879-31528523f8ae",
         image2:
           "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446",
-        price: "€95",
+        price: "Rs. 9,500",
         ratings: "4.9",
         availableSizes: ["XS", "S", "M", "L", "XL"],
       },
@@ -114,7 +114,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1434389677669-e08b4cac3105",
         image2:
           "https://images.unsplash.com/photo-1576566588028-4147f3842f27",
-        price: "€79",
+        price: "Rs. 7,900",
         ratings: "4.6",
         availableSizes: ["XS", "S", "M", "L", "XL", "XXL"],
       },
@@ -127,7 +127,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1551028719-00167b16eac5",
         image2:
           "https://images.unsplash.com/photo-1591369822096-ffd140ec948f",
-        price: "€125",
+        price: "Rs. 12,500",
         ratings: "4.8",
         availableSizes: ["XS", "S", "M", "L", "XL"],
       },
@@ -140,7 +140,7 @@ export const Data = [
           "https://i.pinimg.com/1200x/49/d9/36/49d936da425e0bd29033190bf2e99e91.jpg",
         image2:
           "https://i.pinimg.com/1200x/49/d9/36/49d936da425e0bd29033190bf2e99e91.jpg",
-        price: "€55",
+        price: "Rs. 5,500",
         ratings: "4.5",
         availableSizes: ["XXS", "XS", "S", "M", "L", "XL"],
       },
@@ -153,7 +153,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1596755389378-c31d21fd1273",
         image2:
           "https://images.unsplash.com/photo-1605763240000-7e93b172d754",
-        price: "€69",
+        price: "Rs. 6,900",
         ratings: "4.7",
         availableSizes: ["XS", "S", "M", "L", "XL", "XXL"],
       },
@@ -169,7 +169,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1556821840-3a63f95609a7",
         image2:
           "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633",
-        price: "€79",
+        price: "Rs. 7,900",
         ratings: "4.8",
         availableSizes: ["S", "M", "L", "XL", "XXL", "XXXL"],
       },
@@ -182,7 +182,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1542272604-787c3835535d",
         image2:
           "https://images.unsplash.com/photo-1604176354204-9268737828e4",
-        price: "€89",
+        price: "Rs. 8,900",
         ratings: "4.7",
         availableSizes: ["28", "30", "32", "34", "36", "38"],
       },
@@ -195,7 +195,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
         image2:
           "https://images.unsplash.com/photo-1503341504253-dff4815485f1",
-        price: "€42",
+        price: "Rs. 4,200",
         ratings: "4.6",
         availableSizes: ["S", "M", "L", "XL", "XXL"],
       },
@@ -208,7 +208,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1516826957135-700dedea698c",
         image2:
           "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80",
-        price: "€85",
+        price: "Rs. 8,500",
         ratings: "4.8",
         availableSizes: ["S", "M", "L", "XL", "XXL"],
       },
@@ -221,7 +221,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf",
         image2:
           "https://images.unsplash.com/photo-1598033129183-c4f50c736f10",
-        price: "€65",
+        price: "Rs. 6,500",
         ratings: "4.7",
         availableSizes: ["S", "M", "L", "XL", "XXL"],
       },
@@ -234,7 +234,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1551028719-00167b16eac5",
         image2:
           "https://images.unsplash.com/photo-1548883354-94bcfe321cbb",
-        price: "€119",
+        price: "Rs. 11,900",
         ratings: "4.9",
         availableSizes: ["S", "M", "L", "XL", "XXL"],
       },
@@ -247,7 +247,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1603252109303-2751441dd157",
         image2:
           "https://images.unsplash.com/photo-1596755389378-c31d21fd1273",
-        price: "€72",
+        price: "Rs. 7,200",
         ratings: "4.6",
         availableSizes: ["S", "M", "L", "XL", "XXL"],
       },
@@ -260,7 +260,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1473966968600-fa801b869a1a",
         image2:
           "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80",
-        price: "€69",
+        price: "Rs. 6,900",
         ratings: "4.7",
         availableSizes: ["28", "30", "32", "34", "36", "38"],
       },
@@ -273,7 +273,7 @@ export const Data = [
           "https://i.pinimg.com/736x/e2/19/0b/e2190badb9301678860c13d5ace0187a.jpg",
         image2:
           "https://i.pinimg.com/736x/e2/19/0b/e2190badb9301678860c13d5ace0187a.jpg",
-        price: "€75",
+        price: "Rs. 7,500",
         ratings: "4.8",
         availableSizes: ["S", "M", "L", "XL", "XXL"],
       },
@@ -286,7 +286,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3",
         image2:
           "https://images.unsplash.com/photo-1598033129183-c4f50c736f10",
-        price: "€95",
+        price: "Rs. 9,500",
         ratings: "4.7",
         availableSizes: ["S", "M", "L", "XL", "XXL"],
       },
@@ -299,7 +299,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1552902865-b72c031ac5ea",
         image2:
           "https://images.unsplash.com/photo-1580906855281-6e0c2b0b1a2e",
-        price: "€62",
+        price: "Rs. 6,200",
         ratings: "4.6",
         availableSizes: ["S", "M", "L", "XL", "XXL", "XXXL"],
       },
@@ -312,7 +312,7 @@ export const Data = [
           "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543",
         image2:
           "https://images.unsplash.com/photo-1544923246-77307dd628b9",
-        price: "€149",
+        price: "Rs. 14,900",
         ratings: "4.9",
         availableSizes: ["S", "M", "L", "XL", "XXL"],
       },

@@ -255,7 +255,7 @@ const Carts = () => {
                   <p className="text-xs text-neutral-500 mt-1">
                     Total to pay:{" "}
                     <strong className="text-black">
-                      €{checkoutTotal || getCartTotal().toFixed(2)}
+                      Rs. {checkoutTotal || getCartTotal().toFixed(2)}
                     </strong>
                   </p>
                 </div>
@@ -376,7 +376,7 @@ const Carts = () => {
                       <span>Processing Authenticated Payment...</span>
                     ) : (
                       <span>
-                        Confirm & Pay (€
+                        Confirm & Pay (Rs.{" "}
                         {checkoutTotal || getCartTotal().toFixed(2)})
                       </span>
                     )}

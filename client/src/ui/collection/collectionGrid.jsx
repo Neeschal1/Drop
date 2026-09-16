@@ -47,19 +47,14 @@ const CollectionGrid = ({
       result = result.filter((p) => categorizeItem(p.itemName) === activeCategory);
     }
 
+    const parseVal = (str) =>
+      parseFloat(String(str || "").replace(/,/g, "").replace(/[^0-9.]/g, "")) || 0;
+
     // Sorting
     if (sortOption === "price-asc") {
-      result.sort((a, b) => {
-        const pA = parseFloat(a.price.replace("€", "")) || 0;
-        const pB = parseFloat(b.price.replace("€", "")) || 0;
-        return pA - pB;
-      });
+      result.sort((a, b) => parseVal(a.price) - parseVal(b.price));
     } else if (sortOption === "price-desc") {
-      result.sort((a, b) => {
-        const pA = parseFloat(a.price.replace("€", "")) || 0;
-        const pB = parseFloat(b.price.replace("€", "")) || 0;
-        return pB - pA;
-      });
+      result.sort((a, b) => parseVal(b.price) - parseVal(a.price));
     } else if (sortOption === "rating") {
       result.sort((a, b) => (parseFloat(b.ratings) || 0) - (parseFloat(a.ratings) || 0));
     } else if (sortOption === "name") {

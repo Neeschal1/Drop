@@ -50,7 +50,7 @@ export const BoughtProductsProvider = ({ children }) => {
                 id: p.id,
                 orderId: orderKey,
                 itemName: p.product_name || "DROPP Product",
-                price: `€${p.cost}`,
+                price: `Rs. ${p.cost}`,
                 selectedSize: "Standard",
                 quantity: p.quantity || 1,
                 images: [],
@@ -90,7 +90,7 @@ export const BoughtProductsProvider = ({ children }) => {
         orderDetails.orderId ||
         `ORD-${Math.floor(100000 + Math.random() * 900000)}`,
       itemName: item.itemName || item.itemname || "DROPP Exclusive Item",
-      price: item.price || `€${orderDetails.totalCost || 0}`,
+      price: item.price || `Rs. ${orderDetails.totalCost || 0}`,
       selectedSize: item.selectedSize || "Standard",
       quantity: item.quantity || 1,
       images:

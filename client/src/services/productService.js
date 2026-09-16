@@ -11,12 +11,15 @@ export const normalizeProduct = (p) => {
 
   const image1 = p.image1 || images[0] || "";
   const image2 = p.image2 || images[1] || images[0] || "";
-  const price =
-    typeof p.price === "number"
-      ? `€${p.price}`
-      : p.price?.startsWith("€")
-        ? p.price
-        : `€${p.price || 0}`;
+  let price = p.price;
+  if (typeof price === "number") {
+    price = `Rs. ${price.toLocaleString()}`;
+  } else if (!price) {
+    price = "Rs. 0";
+  } else if (!price.startsWith("Rs.") && !price.startsWith("NPR")) {
+    const cleanNumber = String(price).replace(/,/g, "").replace(/[^0-9.]/g, "");
+    price = `Rs. ${cleanNumber || 0}`;
+  }
   const availableSizes = p.available_sizes ||
     p.availableSizes || ["XS", "S", "M", "L", "XL"];
 

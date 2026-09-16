@@ -8,7 +8,7 @@ export const SimilarProducts = [
       "https://i.pinimg.com/736x/0c/be/2c/0cbe2cd8cffc4f07e28927709e2dc801.jpg",
     image2:
       "https://i.pinimg.com/736x/0c/be/2c/0cbe2cd8cffc4f07e28927709e2dc801.jpg",
-    price: "€72",
+    price: "Rs. 7,200",
     ratings: "4.7",
     availableSizes: ["XS", "S", "M", "L", "XL"],
   },
@@ -22,7 +22,7 @@ export const SimilarProducts = [
       "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
     image2:
       "https://images.unsplash.com/photo-1503341504253-dff4815485f1",
-    price: "€39",
+    price: "Rs. 3,900",
     ratings: "4.8",
     availableSizes: ["XS", "S", "M", "L", "XL", "XXL"],
   },
@@ -36,7 +36,7 @@ export const SimilarProducts = [
       "https://images.unsplash.com/photo-1543076447-215ad9ba6923",
     image2:
       "https://images.unsplash.com/photo-1576871337622-98d48d1cf531",
-    price: "€99",
+    price: "Rs. 9,900",
     ratings: "4.9",
     availableSizes: ["XS", "S", "M", "L", "XL"],
   },
@@ -50,7 +50,7 @@ export const SimilarProducts = [
       "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
     image2:
       "https://images.unsplash.com/photo-1509631179647-0177331693ae",
-    price: "€82",
+    price: "Rs. 8,200",
     ratings: "4.6",
     availableSizes: ["28", "30", "32", "34", "36"],
   },
@@ -59,111 +59,111 @@ export const SimilarProducts = [
     item: 5,
     itemName: "Soft Knit Polo",
     description:
-      "Premium textured knit polo with a relaxed collar and soft finish for refined casual styling.",
+      "Fine-gauge knitted polo with a relaxed collar, designed for elevated daily comfort.",
     image1:
-      "https://images.unsplash.com/photo-1598032895397-b9472444bf93",
+      "https://i.pinimg.com/736x/e2/19/0b/e2190badb9301678860c13d5ace0187a.jpg",
     image2:
-      "https://images.unsplash.com/photo-1627225924765-552d49cf47ad",
-    price: "€68",
+      "https://i.pinimg.com/736x/e2/19/0b/e2190badb9301678860c13d5ace0187a.jpg",
+    price: "Rs. 6,800",
     ratings: "4.7",
-    availableSizes: ["S", "M", "L", "XL", "XXL"],
+    availableSizes: ["S", "M", "L", "XL"],
   },
 
   {
     item: 6,
-    itemName: "Minimal Cotton Hoodie",
+    itemName: "Minimal Ribbed Cardigan",
     description:
-      "Clean everyday hoodie made from soft cotton with a relaxed fit and understated finish.",
+      "Structured ribbed cardigan featuring a clean button-front design and tailored fit.",
     image1:
-      "https://images.unsplash.com/photo-1556821840-3a63f95609a7",
+      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105",
     image2:
-      "https://images.unsplash.com/photo-1578681994506-b8f463449011",
-    price: "€79",
-    ratings: "4.8",
-    availableSizes: ["XS", "S", "M", "L", "XL", "XXL"],
+      "https://images.unsplash.com/photo-1576566588028-4147f3842f27",
+    price: "Rs. 7,900",
+    ratings: "4.5",
+    availableSizes: ["XS", "S", "M", "L", "XL"],
   },
 
   {
     item: 7,
-    itemName: "Vintage Wash Jeans",
+    itemName: "Heavyweight Fleece Sweatpants",
     description:
-      "Relaxed denim jeans featuring a vintage washed finish and comfortable straight-leg profile.",
+      "Relaxed sweatpants with an adjustable drawstring waist and brushed fleece lining.",
     image1:
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
+      "https://images.unsplash.com/photo-1552902865-b72c031ac5ea",
     image2:
-      "https://images.unsplash.com/photo-1542272604-787c3835535d",
-    price: "€92",
-    ratings: "4.9",
-    availableSizes: ["28", "30", "32", "34", "36", "38"],
+      "https://images.unsplash.com/photo-1580906855281-6e0c2b0b1a2e",
+    price: "Rs. 9,200",
+    ratings: "4.8",
+    availableSizes: ["S", "M", "L", "XL", "XXL"],
   },
 
   {
     item: 8,
-    itemName: "Fitted Ribbed Top",
+    itemName: "Cropped Utility Shirt",
     description:
-      "Stretch ribbed top designed with a flattering fitted silhouette and versatile everyday styling.",
+      "Contemporary cropped shirt featuring dual chest pockets and a structured collar.",
     image1:
-      "https://images.unsplash.com/photo-1566206091558-7f218b696731",
+      "https://images.unsplash.com/photo-1596755389378-c31d21fd1273",
     image2:
-      "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3",
-    price: "€42",
+      "https://images.unsplash.com/photo-1605763240000-7e93b172d754",
+    price: "Rs. 4,200",
     ratings: "4.6",
-    availableSizes: ["XXS", "XS", "S", "M", "L", "XL"],
+    availableSizes: ["XS", "S", "M", "L"],
   },
 
   {
     item: 9,
-    itemName: "Structured Wool Coat",
+    itemName: "Classic Wool Blend Blazer",
     description:
-      "Timeless structured coat with a clean silhouette designed for elevated cold-weather outfits.",
+      "Tailored single-breasted blazer in a warm wool blend, perfect for sharp layering.",
     image1:
-      "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543",
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5",
     image2:
-      "https://images.unsplash.com/photo-1548883354-7622d03aca27",
-    price: "€145",
+      "https://images.unsplash.com/photo-1591369822096-ffd140ec948f",
+    price: "Rs. 14,500",
     ratings: "4.9",
-    availableSizes: ["XS", "S", "M", "L", "XL"],
+    availableSizes: ["S", "M", "L", "XL"],
   },
 
   {
     item: 10,
-    itemName: "Relaxed Oxford Shirt",
+    itemName: "Structured Cotton Chinos",
     description:
-      "Classic button-down shirt with a relaxed fit and lightweight cotton construction for everyday wear.",
+      "Tapered cotton chinos combining timeless design with subtle modern flex for ease.",
     image1:
-      "https://images.unsplash.com/photo-1596755389378-c31d21fd1273",
+      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a",
     image2:
-      "https://images.unsplash.com/photo-1603252109303-2751441dd157",
-    price: "€64",
+      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80",
+    price: "Rs. 6,400",
     ratings: "4.7",
-    availableSizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    availableSizes: ["28", "30", "32", "34", "36"],
   },
 
   {
     item: 11,
-    itemName: "Pleated Midi Skirt",
+    itemName: "Relaxed Fit Denim Shorts",
     description:
-      "Elegant pleated midi skirt with a fluid silhouette designed for effortless everyday dressing.",
+      "Casual washed denim shorts with a mid-rise waist and durable reinforced stitching.",
     image1:
-      "https://i.pinimg.com/736x/b9/50/f6/b950f646696f8b18eec9a5d09fcf15b7.jpg",
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
     image2:
-      "https://i.pinimg.com/736x/b9/50/f6/b950f646696f8b18eec9a5d09fcf15b7.jpg",
-    price: "€69",
-    ratings: "4.8",
-    availableSizes: ["XS", "S", "M", "L", "XL"],
+      "https://images.unsplash.com/photo-1582418702059-97ebafb35d09",
+    price: "Rs. 6,900",
+    ratings: "4.5",
+    availableSizes: ["28", "30", "32", "34"],
   },
 
   {
     item: 12,
-    itemName: "Relaxed Oversized Sweatshirt",
+    itemName: "Everyday Zip-Up Hoodie",
     description:
-      "Soft brushed sweatshirt with an oversized silhouette designed for comfortable everyday layering.",
+      "Versatile zip hoodie with split kangaroo pockets and a soft interior feel.",
     image1:
-      "https://images.unsplash.com/photo-1601924994987-69e26d50dc26",
+      "https://images.unsplash.com/photo-1556821840-3a63f95609a7",
     image2:
       "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633",
-    price: "€59",
-    ratings: "4.7",
-    availableSizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    price: "Rs. 5,900",
+    ratings: "4.8",
+    availableSizes: ["S", "M", "L", "XL", "XXL"],
   },
 ];

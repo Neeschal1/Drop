@@ -34,7 +34,12 @@ const CartItems = () => {
 
       <div className="divide-y divide-black/10">
         {cartItems.map((item, index) => {
-          const numericPrice = parseFloat(item.price.replace("€", "")) || 0;
+          const numericPrice =
+            parseFloat(
+              String(item.price || "")
+                .replace(/,/g, "")
+                .replace(/[^0-9.]/g, ""),
+            ) || 0;
           const lineTotal = (numericPrice * item.quantity).toFixed(2);
 
           return (
@@ -68,7 +73,7 @@ const CartItems = () => {
                     <span>Unit: {item.price}</span>
                   </div>
                   <span className="sm:hidden font-poppins font-semibold text-sm text-neutral-900 mt-1">
-                    €{lineTotal}
+                    Rs. {lineTotal}
                   </span>
                 </div>
               </div>
@@ -105,7 +110,7 @@ const CartItems = () => {
                 {/* Subtotal */}
                 <div className="hidden sm:block text-right min-w-[70px]">
                   <span className="font-poppins font-semibold text-base text-neutral-900">
-                    €{lineTotal}
+                    Rs. {lineTotal}
                   </span>
                 </div>
 

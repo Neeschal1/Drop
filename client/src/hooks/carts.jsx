@@ -54,7 +54,8 @@ export const CartProvider = ({ children }) => {
 
   const getCartTotal = useCallback(() => {
     return cartItems.reduce((total, item) => {
-      const price = parseFloat(item.price.replace("€", ""));
+      const rawPrice = String(item.price || "0").replace(/,/g, "").replace(/[^0-9.]/g, "");
+      const price = parseFloat(rawPrice) || 0;
       return total + price * item.quantity;
     }, 0);
   }, [cartItems]);
