@@ -48,15 +48,15 @@ async def create_payment(
                 checkout_session = stripe.checkout.Session.create(
                     line_items=line_item,
                     mode="payment",
-                    success_url=f"{origin}/payment/payment-successful?session_id={{CHECKOUT_SESSION_ID}}",
-                    cancel_url=f"{origin}/payment/payment-failed",
+                    success_url=f"https://dropp-ten.vercel.app/payment/payment-successful?session_id={{CHECKOUT_SESSION_ID}}",
+                    cancel_url=f"https://dropp-ten.vercel.app/payment/payment-failed",
                 )
                 checkout_url = checkout_session.url
                 session_id = checkout_session.id
             except Exception as stripe_err:
                 print("Stripe error:", stripe_err)
                 # Fallback to simulated payment success for testing if Stripe test key has issues
-                checkout_url = f"{origin}/payment/payment-successful"
+                checkout_url = f"https://dropp-ten.vercel.app/payment/payment-successful"
 
         # Record payment in database
         customer_payment = PaymentsDB(
