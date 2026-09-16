@@ -23,25 +23,14 @@ const Carts = () => {
   const [checkoutTotal, setCheckoutTotal] = useState(0);
   const [trendingProducts, setTrendingProducts] = useState([]);
 
-  const [checkoutData, setCheckoutData] = useState({
-    fullName: "",
-    email: "",
+  const [checkoutData, setCheckoutData] = useState(() => ({
+    fullName: user?.fullName || "",
+    email: user?.email || "",
     address: "",
     city: "",
     postalCode: "",
     paymentMethod: "Credit Card",
-  });
-
-  // Pre-fill user data when user is logged in
-  useEffect(() => {
-    if (user) {
-      setCheckoutData((prev) => ({
-        ...prev,
-        fullName: prev.fullName || user.fullName || "",
-        email: prev.email || user.email || "",
-      }));
-    }
-  }, [user]);
+  }));
 
   // Load trending recommendations from backend API for empty cart
   useEffect(() => {
@@ -67,6 +56,13 @@ const Carts = () => {
       showToast("Please log in with your account to proceed to payment.", "error");
       navigate("/login?redirect=/carts");
       return;
+    }
+    if (user) {
+      setCheckoutData((prev) => ({
+        ...prev,
+        fullName: prev.fullName || user.fullName || "",
+        email: prev.email || user.email || "",
+      }));
     }
     setCheckoutTotal(total || getCartTotal().toFixed(2));
     setIsCheckoutOpen(true);

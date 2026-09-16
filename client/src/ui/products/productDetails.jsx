@@ -20,23 +20,24 @@ const ProductDetails = () => {
   const [activeTab, setActiveTab] = useState("details"); // 'details' | 'shipping'
   const [loading, setLoading] = useState(!location.state?.product);
 
-  useEffect(() => {
-    // If product was passed via navigation state, sync it
-    if (location.state?.product) {
-      const normalized = normalizeProduct(location.state.product);
-      setProduct(normalized);
-      setSelectedImage(normalized.image1);
-      setSelectedSize(null);
-      setQuantity(1);
-      setSizeError(false);
-      setLoading(false);
-      return;
-    }
+  const currentProductItem = location.state?.product?.item || location.state?.product?.id;
+  const [prevProductItem, setPrevProductItem] = useState(currentProductItem);
 
-    // Otherwise fetch from database by param ID
+  if (currentProductItem && currentProductItem !== prevProductItem) {
+    setPrevProductItem(currentProductItem);
+    const normalized = normalizeProduct(location.state.product);
+    setProduct(normalized);
+    setSelectedImage(normalized.image1);
+    setSelectedSize(null);
+    setQuantity(1);
+    setSizeError(false);
+  }
+
+  useEffect(() => {
+    if (location.state?.product) return;
+
     const targetId = params.id || 1;
     let isMounted = true;
-    setLoading(true);
 
     getProductById(targetId).then((data) => {
       if (isMounted && data) {
