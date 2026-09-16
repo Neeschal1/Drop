@@ -6,6 +6,7 @@ import { AuthProvider } from "./hooks/auth";
 import { CartProvider } from "./hooks/carts";
 import { FavouritesProvider } from "./hooks/favs";
 import { ToastProvider } from "./hooks/toast";
+import { BoughtProductsProvider } from "./hooks/boughtProducts";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -13,7 +14,9 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <CartProvider>
           <FavouritesProvider>
-            <App />
+            <BoughtProductsProvider>
+              <App />
+            </BoughtProductsProvider>
           </FavouritesProvider>
         </CartProvider>
       </AuthProvider>

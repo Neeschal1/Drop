@@ -6,12 +6,14 @@ import { CartItems, OrderSummary } from "../ui/cart/cartLayout";
 import useCart from "../hooks/carts";
 import { useToast } from "../hooks/toast";
 import useAuth from "../hooks/auth";
+import useBoughtProducts from "../hooks/boughtProducts";
 import api from "../services/api";
 import ProductCard from "../ui/collection/productCard";
 import { getProducts } from "../services/productService";
 
 const Carts = () => {
   const { cartItems, clearCart, getCartTotal } = useCart();
+  const { addBoughtProducts } = useBoughtProducts();
   const { showToast } = useToast();
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
@@ -120,6 +122,14 @@ const Carts = () => {
       const returnedOrderId = response.data.payment_id
         ? `ORD-${response.data.payment_id + 100000}`
         : `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
+
+      // Save to bought products section & empty shopping bag
+      addBoughtProducts(cartItems, {
+        orderId: returnedOrderId,
+        totalCost: productCost,
+        paymentMethod: checkoutData.paymentMethod,
+        shippingAddress: checkoutData.address,
+      });
 
       setOrderId(returnedOrderId);
       setIsOrderPlaced(true);
@@ -392,16 +402,28 @@ const Carts = () => {
                   </strong>
                   .
                 </p>
-                <button
-                  onClick={() => {
-                    setIsCheckoutOpen(false);
-                    setIsOrderPlaced(false);
-                    navigate("/");
-                  }}
-                  className="bg-black text-white px-8 py-3 text-sm font-poppins font-medium hover:bg-neutral-800 transition-colors cursor-pointer"
-                >
-                  Return to Home
-                </button>
+                <div className="flex flex-col sm:flex-row gap-3 w-full justify-center">
+                  <button
+                    onClick={() => {
+                      setIsCheckoutOpen(false);
+                      setIsOrderPlaced(false);
+                      navigate("/bought-products");
+                    }}
+                    className="bg-black text-white px-6 py-3 text-sm font-poppins font-medium hover:bg-neutral-800 transition-colors cursor-pointer"
+                  >
+                    View Bought Products
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsCheckoutOpen(false);
+                      setIsOrderPlaced(false);
+                      navigate("/");
+                    }}
+                    className="border border-black text-black px-6 py-3 text-sm font-poppins font-medium hover:bg-neutral-100 transition-colors cursor-pointer"
+                  >
+                    Return to Home
+                  </button>
+                </div>
               </div>
             )}
           </div>

@@ -162,6 +162,15 @@ const Navbar = ({ bgstate }) => {
                       </p>
                     )}
                   </div>
+                  <div className="flex flex-col gap-1.5 py-1 border-b border-white/10">
+                    <Link
+                      to="/bought-products"
+                      onClick={() => setIsProfileOpen(false)}
+                      className="text-xs text-neutral-200 hover:text-white flex items-center gap-2 py-1 transition-colors"
+                    >
+                      <span>📦</span> Bought Products
+                    </Link>
+                  </div>
                   <button
                     onClick={handleLogout}
                     className="w-full bg-white text-black text-xs py-2 font-medium hover:bg-neutral-200 transition-colors cursor-pointer text-center"
@@ -210,6 +219,7 @@ const Navbar = ({ bgstate }) => {
                   <span className="text-neutral-400">Hi, </span>
                   <strong>{user?.fullName}</strong>
                 </div>
+                <AuthButton navigateTo="/bought-products" buttonName="BOUGHT PRODUCTS" />
                 <button
                   onClick={() => {
                     handleLogout();
@@ -221,7 +231,10 @@ const Navbar = ({ bgstate }) => {
                 </button>
               </div>
             ) : (
-              <AuthButton navigateTo="/login" buttonName="ACCOUNT" />
+              <>
+                <AuthButton navigateTo="/login" buttonName="ACCOUNT" />
+                <AuthButton navigateTo="/bought-products" buttonName="BOUGHT PRODUCTS" />
+              </>
             )}
             <AuthButton navigateTo="/favourites" buttonName="FAVS" />
             <CartButton navigateTo="/carts" />
