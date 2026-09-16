@@ -110,7 +110,7 @@ const Signup = () => {
                 value={formData.name}
                 onChange={handleChange}
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
-                placeholder="Jane Doe"
+                placeholder="Nischal Pokharek"
               />
             </div>
 
@@ -129,7 +129,7 @@ const Signup = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="bg-transparent border-b border-white/30 py-2 text-sm font-poppins text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors duration-300"
-                placeholder="jane@example.com"
+                placeholder="neeschal@example.com"
               />
             </div>
 
