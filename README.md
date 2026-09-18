@@ -41,7 +41,7 @@ Drop is a modern and scalable e-commerce platform designed to provide a seamless
 ### Backend
 
 - FastAPI
-- Python
+- Python 3.13.3
 - SQLAlchemy
 - Pydantic
 - JWT Authentication
@@ -427,6 +427,10 @@ This project is licensed under the **MIT License**.
 
 - GitHub: https://github.com/Neeschal1
 - LinkedIn: [https://www.linkedin.com/in/nischal-pokhrel-6543632b7/](https://www.linkedin.com/in/nischal-pokhrel-6543632b7/)
+
+**Keshav Prasad Neupane**
+- GitHub: https://github.com/keshavprasadneupane
+- LinkedIn: https://www.linkedin.com/in/keshav-prasad-neupane-259542318/
 
 ---
 
